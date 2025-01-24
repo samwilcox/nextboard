@@ -1,0 +1,33 @@
+{
+  "name": "nextboard",
+  "version": "1.0.0",
+  "description": "NextBoard is a modern, lightweight bulletin board built with Node.js. It’s designed for simplicity, scalability, and customization, featuring modular architecture, real-time updates, and advanced tagging. Perfect for creating dynamic discussion forums for any community or project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samwilcox/nextboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/samwilcox/nextboard/issues"
+  },
+  "homepage": "https://github.com/samwilcox/nextboard#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "mssql": "^11.0.1",
+    "mysql2": "^3.12.0",
+    "oracledb": "^6.7.1",
+    "path": "^0.12.7",
+    "pg": "^8.13.1",
+    "sqlite3": "^5.1.7"
+  }
+}
