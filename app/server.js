@@ -28,7 +28,7 @@ module.exports = () => {
         .then(() => {
             initializeSettings();
             PluginService.loadPlugins();
-            initializeRoutes();
+            initializeRoutes(app);
         })
         .catch(error => {
             console.error(`Error initializing NextBoard: ${error}`);
