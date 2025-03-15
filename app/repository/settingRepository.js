@@ -45,40 +45,55 @@ class SettingRepository {
         try {
             switch (setting.getType()) {
                 case 'serialized':
-                    setting.setValue(setting.value.toString().length > 0 ? JSON.parse(setting.value) : null);
-                    setting.setDefaultValue(setting.value.toString().length > 0 ? JSON.parse(setting.value) : null);
+                    setting.setValue(data.value.toString().length > 0 ? JSON.parse(data.value) : null);
+                    setting.setDefaultValue(data.value.toString().length > 0 ? JSON.parse(data.value) : null);
+                    break;
+                case 'regexarray':
+                    let value = null, defaultValue = null;
+
+                    if (data.value.toString().length > 0) {
+                        value = JSON.parse(data.value);
+                        defaultValue = JSON.parse(data.defaultValue);
+                    }
+
+                    const arr = value.map(pattern => new RegExp(pattern));
+                    const arrDef = value.map(pattern => new RegExp(pattern));
+                    setting.setValue(arr);
+                    setting.setDefaultValue(arrDef);
                     break;
                 case 'bool':
-                    setting.setValue(typeof setting.value === 'string' ? setting.value.toLowerCase() === 'true' : false);
-                    setting.setDefaultValue(typeof setting.value === 'string' ? setting.value.toLowerCase() === 'true' : false);
+                    setting.setValue(typeof data.value === 'string' ? data.value.toLowerCase() === 'true' : false);
+                    setting.setDefaultValue(typeof data.value === 'string' ? data.value.toLowerCase() === 'true' : false);
                     break;
                 case 'number':
-                    setting.setValue(parseInt(setting.value, 10));
-                    setting.setDefaultValue(parseInt(setting.value, 10));
+                    setting.setValue(parseInt(data.value, 10));
+                    setting.setDefaultValue(parseInt(data.defaultValue, 10));
                     break;
                 case 'float':
-                    const float = parseFloat(setting.value);
+                    const float = parseFloat(data.value);
     
                     if (isNaN(float)) {
-                        throw new Error(`Invalid float value for setting: ${setting.name}`);
+                        throw new Error(`Invalid float value for setting: ${data.name}`);
                     }
     
                     setting.setValue(parseFloat(float));
                     setting.setDefaultValue(parseFloat(float));
                     break;
                 case 'string':
-                    setting.setValue(setting.value.toString());
-                    setting.setDefaultValue(setting.value.toString());
+                    setting.setValue(data.value.toString());
+                    setting.setDefaultValue(data.value.toString());
                     break;
                 default:
-                    setting.setValue(setting.value);
-                    setting.setDefaultValue(setting.value);
+                    setting.setValue(data.value);
+                    setting.setDefaultValue(data.value);
                     break;
             }
         } catch (error) {
-            console.error(`Error processing setting: ${setting.name}. Error: ${error}`);
+            console.error(`Error processing setting: ${data.name}. Error: ${error}`);
             throw error;
         }
+
+        return setting;
     }
 
     /**

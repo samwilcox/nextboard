@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="robots" content="noindex">
+        <title><%= settings.communityTitle %></title>
+        <link rel="stylesheet" href="<%= baseUrl %>/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%= themeCssUrl %>/admincp.css">
+        <script src="<%= baseUrl %>/js/jquery-min.js"></script>
+        <script src="<%= baseUrl %>/js/jquery-ui.js"></script>
+        <script src="<%= baseUrl %>/js/ajax.js"></script>
+        <script src="<%= baseUrl %>/js/admincp.js"></script>
+        <script>
+            const imagesetUrl = '<%= imagesetUrl %>';
+            const ajaxUrl = '<%= baseUrl %>';
+            const baseUrl = '<%= baseUrl %>';
+            const api = {
+                giphy: {
+                    key: '<%= api.giphy.key %>',
+                    url: '<%= api.giphy.url %>',
+                    trendLimit: <%= settings.giphyTrendLimit %>,
+                },
+            };
+            const editor = {
+                charCount: <%= flags.charCount %>,
+                wordCount: <%= flags.wordCount %>,
+            };
+            const css = {   
+                dropDownMenuSelector: "<%= css.dropDownMenuSelector %>",
+            };
+            const emoticonCategories = {
+                "Smileys & Emoticon": "smileys-emoticon",
+                "People & Body": "people-body",
+                "Animals & Nature": "animals-nature",
+                "Food & Drink": "food-drink",
+                "Travel & Places": "travel-places",
+                "Activities": "activities",
+                "Objects": "objects",
+                "Symbols": "symbols",
+                "Flags": "flags",
+            };
+            const fontFamilies = <%- fontFamilies %>;
+            const fontSizes = <%- fontSizes %>;
+            const fontColors = <%- fontColors %>;
+            <% if (csrfToken) { %>
+                const csrfToken = "<%= csrfToken %>";
+                const csrfEnabled = true;
+            <% } else { %>
+                const csrfEnabled = false;
+            <% } %>
+            const locale = {
+                dialogErrorTitle: '<%= locale.global.dialogErrorTitle %>',
+                textBodyMissing: '<%= locale.errors.textBodyMissing %>',
+                topicTitleMissing: "<%= locale.errors.topicTitleMissing %>",
+            };
+            const fontAwesome = {
+                menuCategoryExpanded: 'fa-solid fa-angle-down',
+                menuCategoryCollapsed: 'fa-solid fa-angle-right',
+            };
+        </script>
+    </head>
+    <body>
+        <header>
+            <div class="dualHorizontalGridCentered">
+                <div>
+                    <div class="headerLeftGrid">
+                        <div class="headerLeftMenuBar"><a href="javascript:void(0);" onclick="toggleMenu();"><i class="fa-solid fa-bars"></i></a></div>
+                        <div class="headerLogo"><a href="">NextBoard Administrator Control Panel</a></div>
+                    </div>
+                </div>
+                <div class="headerRight">Right</div>
+            </div>
+        </header>
+        <div class="sideMenu" id="side-menu">
+            <span class="sideMenuCategory<% if (menu.general.expanded) { %> expanded<% } %>" id="general-category"><a href="javascript:void(0);" data-category="general" onclick="updateMenuCategoryToggle(this);"><i class="<% if (menu.general.expanded) { %>fa-solid fa-angle-down<% } else { %>fa-solid fa-angle-right<% } %>"></i><%= locale.admincp.global.general %></a></span>
+            <span id="menu-general"<% if (!menu.general.expanded) { %> style="display: none;"<% } %>>
+                <span class="sideMenuItem<% if (menu.general.items.dashboard.selected) { %> selected<% } %>"><a href="<%= __urls.general.dashboard %>"><%= locale.admincp.global.dashboard %></a></span>
+            </span>
+            <span class="sideMenuCategory<% if (menu['forum-management'].expanded) { %> expanded<% } %>" id="forum-management-category"><a href="javascript:void(0);" data-category="forum-management" onclick="updateMenuCategoryToggle(this);"><i class="<% if (menu['forum-management'].expanded) { %>fa-solid fa-angle-down<% } else { %>fa-solid fa-angle-right<% } %>"></i><%= locale.admincp.global.forumManagement %></a></span>
+            <span id="menu-forum-management"<% if (!menu['forum-management'].expanded) { %> style="display: none;"<% } %>>
+                <span class="sideMenuItem<% if (menu['forum-management'].items['manage-forums'].selected) { %> selected<% } %>"><a href="<%= __urls.forumManagement.manageForums %>"><%= locale.admincp.global.manageForums %></a></span>
+                <span class="sideMenuItem<% if (menu['forum-management'].items['manage-features'].selected) { %> selected<% } %>"><a href="<%= __urls.forumManagement.manageFeatures %>"><%= locale.admincp.global.manageFeatures %></a></span>
+            </span>
+        </div>
+        <%- body %>
+    </body>
+</html>

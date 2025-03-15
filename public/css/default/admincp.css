@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body { font-family: 'Nunito', sans-serif; font-size: 14px; background-color: #12161A; color: #B6C2CB; padding: 0; margin: 0; padding: 120px 70px 70px 380px; }
+header { position: fixed; left: 0; right: 0; top: 0; z-index: 200; background-color: #262D37; padding: 20px; }
+.dualHorizontalGridCentered { display: grid; grid-template-columns: auto auto; gap: 30px; align-items: center; }
+.headerLeftGrid { display: grid; grid-template-columns: auto auto; width: fit-content; gap: 30px; align-items: center; }
+.headerLeftMenuBar a, .headerLeftMenuBar a:link, .headerLeftMenuBar a:active, .headerLeftMenuBar a:visited { color: #B6C2CB; text-decoration: none; transition: 0.5s ease all; font-size: 20px; }
+.headerLeftMenuBar a:hover { color: #FFF; text-decoration: none; transition: 0.5s ease all; }
+.headerLogo a, .headerLogo a:link, .headerLogo a:active, .headerLogo a:visited { color: #EBEEF1; text-decoration: none; transition: 0.5s ease all; font-weight: 900; font-size: 24px; }
+.headerLogo a:hover { color: #73CFFF; text-decoration: none; transition: 0.5s ease all; }
+.headerRight { text-align: right; }
+.sideMenu { position: fixed; left: 0; top: 0; bottom: 0; z-index: 100; background-color: #0F1113; width: 300px; padding: 100px 20px 20px 20px; max-height: 100%; overflow-y: auto; }
+.floater { width: 1300px; margin-left: auto; margin-right: auto; }
+.sideMenuCategory a, .sideMenuCategory a:link, .sideMenuCategory a:active, .sideMenuCategory a:visited { width: auto; display: block; color: #EBEEF1; text-decoration: none; transition: 0.5s ease all; margin-top: 20px; border-radius: 8px; padding: 10px 20px; font-weight: 900; font-size: 16px; }
+.sideMenuCategory a:hover { color: #FFF; text-decoration: none; transition: 0.5s ease all; background-color: #2B3035; }
+.sideMenuCategory a:first-of-type { margin-top: 0; }
+.sideMenuCategory i { margin-right: 8px; }
+.sideMenuItem a, .sideMenuItem a:link, .sideMenuItem a:active, .sideMenuItem a:visited { color: #B6C2CB; text-decoration: none; transition: 0.5s ease all; display: block; border-radius: 8px; padding: 10px 20px; margin-left: 20px; }
+.sideMenuItem a:hover { color: #FFF; text-decoration: none; transition: 0.5s ease all; background-color: #090A0B; }
+.sideMenuItem.selected a, .sideMenuItem.selected a:link, .sideMenuItem.selected a:active, .sideMenuItem.selected a:visited { color: #EBEEF1; text-decoration: none; transition: 0.5s ease; background-color: #090A0B; }
+.sideMenuItem.selected a:hover { color: #EBEEF1; text-decoration: none; transition: 0.5s ease all; background-color: #16181A; }
+.pageTitleBar{ width: auto; margin-bottom: 30px; }
+.pageTitleBarGrid { display: grid; grid-auto-flow: row; gap: 2px; }
+.pageTitle { font-size: 36px; font-weight: 900; color: #EBEEF1;  }
+.pageTitleInfo { color: #B6C2CB; }
+.dashboardGrid { display: grid; grid-template-columns: 60% 40%; gap: 30px; }
+.dashboardItem { width: auto; border-radius: 8px; background-color: #0D0E0F; border: 1px solid #2E353C; padding: 30px; margin-top: 30px; }
+.dashboardItem:first-of-type { margin-top: 0; }
+.dashboardItemGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.dashboardItemGridLeft { border-right: 1px solid #2E353C; }
+.dashboardItemGridInnerGrid { display: grid; grid-auto-flow: row; gap: 20px; }
+.dashboardItemTitle { font-weight: 900; color: #EBEEF1; font-size: 18px; text-align: center; border-bottom: 1px solid #2E353C;  padding-bottom: 10px; margin-top: 20px; }
+.dashboardItemTitle:first-of-type { margin-top: 0; }
+.dashboardRowGrid { display: grid; grid-auto-flow: row; gap: 4px; }
+.iconGrid { display: grid; grid-template-columns: auto auto; width: fit-content; gap: 7px; align-items: center; }
+.osIcon { font-size: 24px; font-weight: bold; }
+.dashboardItemLeftRightGrid { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
+.bold { font-weight: 900; }
+.alignRight { text-align: right; }
+.paddingLeft { padding-left: 20px; }
+.paddingRight { padding-right: 20px; }
+.dashboardStorageGrid { display: grid; grid-template-columns: auto auto auto auto auto auto auto auto; gap: 10px; align-items: center; width: fit-content; }
+.dashboardStorageGridRow { display: grid; grid-auto-flow: row; gap: 10px; }
+.storageIcon { font-size: 20px; }
+.percentageBarWrapper { width: 100%; box-sizing: border-box; border-radius: 8px; border: 1px solid #2E353C; height: 20px; position: relative; }
+.percentageBar { width: 0%; border-radius: 8px; background-color: #73CFFF; height: 20p; }
+.percentageBarGrid { display: grid; grid-template-columns: auto auto 1fr auto; gap: 20px; align-items: center; width: 100%; }
+.percentage { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9); font-weight: 900; }
+.storageUsed { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9); font-weight: 900; }
+.dashboardNetworkTitle { width: auto; border-bottom: 1px dashed #2E353C; padding:0 20px 10px 20px; font-weight: 900; font-size: 16px; }

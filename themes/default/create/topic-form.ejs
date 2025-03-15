@@ -1,0 +1,177 @@
+<div class="pageTitle"><%= locale.create.createNewTopicPageTitle %></div>
+<form name="newtopicform" id="newtopicform" action="<%= action %>" method="post" enctype="application/x-www-form-urlencoded" data-id="<%= editor.id %>" onsubmit="return validateCreateNewTopic(event, this);">
+    <div class="dialog" id="dialog-addpoll">
+        <div class="dialogHeader">
+            <div class="dualHorizontalGridCentered">
+                <div class="title"><%= locale.create.attachPollDialogTitle %></div>
+                <div class="alignRight dialogClose"><a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.closeDialogTooltip %>" onclick="closeDialog(this);"><i class="fa-solid fa-xmark"></i></a></div>
+            </div>
+        </div>
+        <div class="dialogContent">
+            <div class="dialogBiggerScroller">
+                <div class="dialogItemHeader">Poll Settings</div>
+                <div class="dialogItem">
+                    <div class="horizontalFieldsGrid" style="width: fit-content;">
+                        <div>
+                            <div class="dualVerticalBigGapGrid" style="width: fit-content;">
+                                <div>
+                                    <div class="checkbox2">
+                                        <input id="allowexpire-checkbox" class="substituted" type="checkbox" aria-hidden="true" data-checkbox="allowexpire-checkbox" data-dt="datetime-input" onclick="togglePollExpires(this); pollOnAllowExpireChange(this);">
+                                        <label for="allowexpire-checkbox">Allow Expire?</label>
+                                    </div>   
+                                </div>
+                                <div id="datetime-input" style="display: none;">
+                                    <div class="horizontalFieldsGridGrid" style="width: fit-content;">
+                                        <div class="bold">Date & Time</div>
+                                        <div class="dateTimeContainer">
+                                            <input type="datetime-local" name="pollexpires" id="pollexpires-input" value="<%= defaultDateTime %>" onchange="pollOnDateTimeChange(this);">
+                                            <span class="dateTimeCalendarIcon" onclick="document.getElementById('pollexpires-input').showPicker();"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                       
+                        </div>
+                        <div>
+                            <div>
+                                <div class="checkbox2">
+                                    <input id="allowreplies-checkbox" class="substituted" type="checkbox" aria-hidden="true" onchange="pollOnAllowRepliesChange(this);" checked>
+                                    <label for="allowreplies-checkbox">Allow Replies?</label>
+                                </div>                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dialogItemHeader">Poll Options</div>
+                <div class="dialogItem">
+                    <div id="poll-questions-grid">
+                        <div class="dualVerticalBigGapGrid">
+                            <div id="poll-question-1">
+                                <div class="dialogItemHeader">Question 1</div>
+                                <div class="dualVerticalBiggerGrid">
+                                    <div>
+                                        <div class="formGroup">
+                                            <input type="text" name="question-1" id="question-1-input" placeholder="Question" data-question="1" onkeyup="pollOnQuestionChange(this);">
+                                            <label for="question-1-input">Question 1</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="horizontalFieldsGrid" style="align-items: center;">
+                                            <div>
+                                                <div class="checkbox2">
+                                                    <input id="multiplechoice-question-1-mc" class="substituted" data-question="1" type="checkbox" aria-hidden="true" onchange="pollOnMcChange(this);">
+                                                    <label for="multiplechoice-question-1-mc">Multiple Choice</label>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="pollOptionsGrid" id="question-1-options-grid">
+                                    <div>
+                                        <div class="pollOptionsGridColumns">
+                                            <div><a href="javascript:void(0);" data-question="1" data-option="1" onclick="deletePollOption(this);"><i class="fa-solid fa-trash-can"></i></a></div>
+                                            <div>
+                                                <div class="formGroup">
+                                                    <input type="text" name="question-1-option-1" id="question-1-option-1-input" data-question="1" data-option="1" placeholder="Option 1" onkeyup="pollOnOptionChange(this);">
+                                                    <label for="question-1-input">Option 1</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="pollOptionsGridColumns">
+                                            <div><a href="javascript:void(0);" data-question="1" data-option="2" onclick="deletePollOption(this);"><i class="fa-solid fa-trash-can"></i></a></div>
+                                            <div>
+                                                <div class="formGroup">
+                                                    <input type="text" name="question-1-option-2" id="question-1-option-2-input" data-question="1" data-option="2" placeholder="Option 2" onkeyup="pollOnOptionChange(this);">
+                                                    <label for="question-1-option-2-input">Option 2</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pollAddOption"><a href="javascript:void(0);" data-question="1" onclick="addNewPollOption(this);"><i class="fa-solid fa-plus"></i><%= locale.create.addPollOption %></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pollAddQuestion"><a href="javascript:void(0);" onclick="addNewPollQuestion();"><i class="fa-solid fa-plus"></i><%= locale.create.addPollQuestion %></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentWrapper">
+        <div class="formGroup">
+            <input type="text" name="title" id="title-input" placeholder="<%= locale.create.titlePlaceholder %>" class="longField">
+            <label for="title-input"><%= locale.create.titlePlaceholder %></label>
+        </div>
+        <div class="formItem"><%- editor.component %></div>
+        <% if (permissions.attachFiles) { %>
+            <div class="formItem"><%- uploader.component %></div>
+        <% } %>
+        <% if (permissions.createPolls) { %>
+            <div class="formItem attachPoll"><a href="javascript:void(0);" data-dialog="dialog-addpoll" data-width="900" onclick="openDialog(event, this);"><i class="fa-solid fa-square-poll-vertical"></i><%= locale.create.attachPollLink %></a><span class="attachPollRemove" id="poll-attach-link" style="display: none;">[ <a href="javascript:void(0);" onclick="pollRemoveAttach();">Remove Poll</a> ]</span></span></div>
+        <% } %>
+        <div class="formItem"><%- tags.input %></div>
+        <% if (member.isSignedIn()) { %>
+            <div class="formItem">
+                <div class="checkboxGrid">
+                    <div>
+                        <div class="checkbox">
+                            <span class="checkbox">
+                                <input type="checkbox" name="includesignature" value="1" id="signature-checkbox"<% if (member.getToggles().display.includeSignature) { %> checked<% } %>>
+                                <svg>
+                                <use xlink:href="#checkbox" class="checkbox"></use>
+                                </svg>
+                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                                <symbol id="checkbox" viewBox="0 0 22 22">
+                                <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="signature-checkbox">
+                            <span class="checkboxTitle"><%- locale.create.includeSignature %></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <% if (permissions.followTopics) { %>
+                <div class="formItem">
+                    <div class="checkboxGrid">
+                        <div>
+                            <div class="checkbox">
+                                <span class="checkbox">
+                                    <input type="checkbox" name="follow" value="1" id="follow-checkbox"<% if (member.getToggles().auto.followTopics) { %> checked<% } %>>
+                                    <svg>
+                                    <use xlink:href="#checkbox" class="checkbox"></use>
+                                    </svg>
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                                    <symbol id="checkbox" viewBox="0 0 22 22">
+                                    <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
+                                    </symbol>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="follow-checkbox">
+                                <span class="checkboxTitle"><%= locale.create.followTopic %></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
+        <div class="buttonBox">
+            <% if (csrfToken) { %>
+                <input type="hidden" name="_csrfToken" value="<%= csrfToken %>">
+            <% } %>
+            <input type="hidden" name="poll" id="poll-data">
+            <input type="submit" name="newtopicbutton" id="newtopicbutton" value="<%= locale.create.createTopicButton %>">
+        </div>
+    </div>
+</form>

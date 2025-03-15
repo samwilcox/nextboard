@@ -17,7 +17,10 @@ const initializeDatabase = require('./services/databaseService');
 const initializeCache = require('./services/cacheService');
 const initializeSettings = require('./services/settingsService');
 const initializeRoutes = require('./services/routesService');
-const PluginService = require('./services/pluginService');
+const initializeMiddleware = require('./middleware/indexMiddleware');
+//const PluginService = require('./services/pluginService');
+const startServer = require('./services/serverService');
+const Settings = require('./settings');
 
 /**
  * Initializes the NextBoard application.
@@ -27,10 +30,13 @@ module.exports = () => {
         .then(() => initializeCache())
         .then(() => {
             initializeSettings();
-            PluginService.loadPlugins();
+            //PluginService.loadPlugins();
+            initializeMiddleware(app);
             initializeRoutes(app);
+            startServer(app);
         })
         .catch(error => {
             console.error(`Error initializing NextBoard: ${error}`);
+            process.exit(1);
         });
 };

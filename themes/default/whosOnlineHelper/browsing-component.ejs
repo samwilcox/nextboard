@@ -1,0 +1,15 @@
+<div class="whosOnlineBrowsingBar<% if (list) { %> alt<% } %>">
+    <div class="whosOnlineBrowsingBarGrid">
+        <div class="whosOnlineBrowsingBarGridLeft"><i class="fa-solid fa-glasses"></i></div>
+        <div class="whosOnlineBrowsingBarGridInfo"><%- viewing %></div>
+        <div class="whosOnlineBrowsingBarGridRight">
+            <span><strong><%= locale.whosOnlineHelper.members %></strong><i class="fa-solid fa-arrow-right"></i><%= total.formatted.members %></span>
+            <span><strong><%= locale.whosOnlineHelper.anonymous %></strong><i class="fa-solid fa-arrow-right"></i><%= total.formatted.anonymous %></span>
+            <span><strong><%= locale.whosOnlineHelper.guests %></strong><i class="fa-solid fa-arrow-right"></i><%= total.formatted.guests %></span>
+            <span><strong><%= locale.whosOnlineHelper.searchBots %></strong><i class="fa-solid fa-arrow-right"></i><%= total.formatted.bots %></span>
+        </div>
+    </div>
+</div>
+<% if (list) { %>
+    <div class="whosOnlineBrowsingListBox"><%- list %></div>
+<% } %>

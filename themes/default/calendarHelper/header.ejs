@@ -1,0 +1,24 @@
+<div class="dropDownMenu" id="ddm-calendars">
+    <span class="dropDownMenuLinks">
+        <% calendars.forEach(calendar => { %>
+            <a href=""><%= calendar.getTitle() %></a>
+        <% }) %>
+    </span>
+</div>
+<div class="dualPageTitleGrid relative">
+    <span class="calendarOptionFloater">
+        <a href="" class="tooltip tooltip--top" data-title="<%= locale.calendarHelper.monthlyTooltip %>"><i class="fa-regular fa-calendar-days"></i></a>
+        <a href="" class="tooltip tooltip--top" data-title="<%= locale.calendarHelper.weeklyTooltip %>"><i class="fa-solid fa-calendar-week"></i></a>
+        <a href="" class="tooltip tooltip--top" data-title="<%= locale.calendarHelper.dailyTooltip %>"><i class="fa-solid fa-calendar-day"></i></a>
+    </span>
+    <div class="dualPageTitleGridLeft">
+        <div class="titleWithSelectionGrid">
+            <div class="titleWithSelectionGridLeft"><%= calendar.getTitle() %></div>
+            <div class="dualPageTitleGridSelect"><a href="javascript:void(0);" id="ddm-calendars-link" data-menu="ddm-calendars" data-link="ddm-calendars-link" data-ignored="ddm-calendars-icon" data-spacing="34" onclick="openDropDownMenu(this);">Select Calendar<i class="fa-solid fa-caret-down" id="ddm-calendars-icon"></i></a></div>
+        </div>
+        <%- calendar.getDescription() %>
+    </div>
+    <div class="dualPageTitleGridRight">
+        
+    </div>
+</div>

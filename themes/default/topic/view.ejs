@@ -1,0 +1,66 @@
+<div class="dualPageTitleGrid relative">
+    <span class="viewForumInfoFloater">
+        <span><i class="fa-regular fa-file"></i><%- totalPosts %></span>
+        <span><i class="fa-solid fa-reply"></i><%- totalReplies %></span>
+        <span><i class="fa-solid fa-user"></i><%- totalPosters %></span>
+        <span><i class="fa-solid fa-eye"></i><%- totalViews %></span>
+        <span><i class="fa-solid fa-paperclip"></i><%- totalAttachments %></span>
+    </span>
+    <div class="dualPageTitleGridLeft">
+        <div class="dualVerticalGrid">
+            <div>
+                <div class="pageTitleText"><%- topic.getTitle() %></div>
+            </div>
+            <div>
+                <div class="topicPageInfoGrid">
+                    <div>
+                        <div class="userSideBySideGrid">
+                            <div><%- created.photo %></div>
+                            <div>
+                                <%- created.name %><br>
+                                <span class="smallText"><%= created.timestamp %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div><%- inForum %></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dualPageTitleGridRight">
+        <% if (permissions.createTopic) { %>
+            <span class="buttonOne"><a href="<%= urls.createTopic %>"><i class="fa-solid fa-folder-plus"></i><%= locale.topic.createTopicButton %></a></span>
+        <% } %>
+        <% if (permissions.replyToTopic) { %>   
+            <span class="buttonOne"><a href="javascript:void(0);" data-id="<%= editorId %>" onclick="replyToTopic(this);"><i class="fa-solid fa-reply"></i><%= locale.topic.replyButton %></a></span>
+        <% } %>
+    </div>
+</div>
+<% if (poll) { %>
+    <div id="poll-container">
+        <%- poll %>
+    </div>
+<% } %>
+<%- paginationTop %>
+<%- posts %>
+<%- paginationBottom %>
+<% if (permissions.replyToTopic) { %>
+    <%- quickReply %>
+<% } %>
+<% if (previousNext.previous || previousNext.next) { %>
+    <div class="previousNext">
+        <div class="dualHorizontalGridCentered">
+            <div class="previousTopic">
+                <% if (previousNext.previous) { %>
+                    <a href="<%= previousNext.previous.url() %>"><i class="fa-solid fa-arrow-left"></i><%= locale.topic.previousTopic %> %></a>
+                <% } %>
+            </div>
+            <div class="alignRight nextTopic">
+                <% if (previousNext.next) { %>
+                    <a href="<%= previousNext.next.url() %>"><%= locale.topic.nextTopic %><i class="fa-solid fa-arrow-right"></i></a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<% } %>
+<%- browsing %>

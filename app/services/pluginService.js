@@ -34,7 +34,7 @@ class PluginService {
      * 
      * @returns {PluginService} The singleton instance of PluginService.
      */
-    getInstance() {
+    static getInstance() {
         if (!PluginService.instance) {
             PluginService.instance = new PluginService();
         }

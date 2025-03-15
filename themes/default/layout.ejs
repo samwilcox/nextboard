@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="robots" content="noindex">
+        <title><%= settings.communityTitle %></title>
+        <link rel="stylesheet" href="<%= baseUrl %>/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%= themeCssUrl %>/common.css">
+        <link rel="stylesheet" href="<%= themeCssUrl %>/hyperlinks.css">
+        <link rel="stylesheet" href="<%= themeCssUrl %>/forms.css">
+        <script src="<%= baseUrl %>/js/jquery-min.js"></script>
+        <script src="<%= baseUrl %>/js/jquery-ui.js"></script>
+        <script src="<%= baseUrl %>/js/common.js"></script>
+        <script src="<%= baseUrl %>/js/ajax.js"></script>
+        <script>
+            const imagesetUrl = '<%= imagesetUrl %>';
+            const ajaxUrl = '<%= baseUrl %>';
+            const baseUrl = '<%= baseUrl %>';
+            const api = {
+                giphy: {
+                    key: '<%= api.giphy.key %>',
+                    url: '<%= api.giphy.url %>',
+                    trendLimit: <%= settings.giphyTrendLimit %>,
+                },
+            };
+            const editor = {
+                charCount: <%= flags.charCount %>,
+                wordCount: <%= flags.wordCount %>,
+            };
+            const css = {   
+                dropDownMenuSelector: "<%= css.dropDownMenuSelector %>",
+            };
+            const emoticonCategories = {
+                "Smileys & Emoticon": "smileys-emoticon",
+                "People & Body": "people-body",
+                "Animals & Nature": "animals-nature",
+                "Food & Drink": "food-drink",
+                "Travel & Places": "travel-places",
+                "Activities": "activities",
+                "Objects": "objects",
+                "Symbols": "symbols",
+                "Flags": "flags",
+            };
+            const fontFamilies = <%- fontFamilies %>;
+            const fontSizes = <%- fontSizes %>;
+            const fontColors = <%- fontColors %>;
+            <% if (csrfToken) { %>
+                const csrfToken = "<%= csrfToken %>";
+                const csrfEnabled = true;
+            <% } else { %>
+                const csrfEnabled = false;
+            <% } %>
+            const locale = {
+                dialogErrorTitle: '<%= locale.global.dialogErrorTitle %>',
+                textBodyMissing: '<%= locale.errors.textBodyMissing %>',
+                topicTitleMissing: "<%= locale.errors.topicTitleMissing %>",
+            }
+        </script>
+    </head>
+    <body>
+        <span class="preloader" id="preloader"><img src="" id="preloader-image" alt="*"></span>
+        <div class="backgroundDisabler" id="background-disabler" onclick="closeDialog();"></div>
+        <div class="dialog" id="dialog-error">
+            <div class="dialogHeader">
+                <div class="dualHorizontalGridCentered">
+                    <div class="title" id="dialog-error-title"></div>
+                    <div class="alignRight dialogClose"><a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.closeDialogTooltip %>" onclick="closeDialog(this);"><i class="fa-solid fa-xmark"></i></a></div>
+                </div>
+            </div>
+            <div class="dialogContentWithFooter">
+                <div class="dialogErrorGrid">
+                    <div class="dialogErrorIcon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="dialogErrorMessage" id="dialog-error-message"></div>
+                </div>
+            </div>
+            <div class="dialogFooter"><input type="button" name="errordialogbutton" value="<%= locale.global.okButton %>" onclick="closeDialog();"></div>
+        </div>
+        <%- dialogs %>
+        <div class="dropDownMenu" id="ddm-more">
+            <span class="dropDownMenuLinks">
+                <% if (permissions.tags) { %>
+                    <a href="<%= _urls.tagsMenu %>"><%= locale.global.tagsMenuLink %></a>
+                <% } %>
+                <% if (permissions.calendar) { %>
+                    <a href="<%= _urls.calendarMenu %>"><%= locale.global.calendarMenuLink %></a>
+                <% } %>
+                <% if (permissions.whosOnline) { %>
+                    <a href="<%= _urls.whosOnlineMenu %>"><%= locale.global.whosOnlineMenuLink %></a>
+                <% } %>
+                <% if (permissions.help) { %>
+                    <a href="<%= _urls.helpMenu %>"><%= locale.global.helpMenuLink %></a>
+                <% } %>
+                <% if (permissions.unreadContent) { %>
+                    <a href="<%= _urls.unreadContent %>"><%= locale.global.unreadContentMenuLink %></a>
+                <% } %>
+                <% if (permissions.latestContent) { %>
+                    <a href="<%= _urls.latestContent %>"><%= locale.global.latestContentMenuLink %></a>
+                <% } %>
+            </span>
+        </div>
+        <div class="dropDownMenu" id="ddm-membermenu">
+            <span class="dropDownMenuLinks">
+                <a href="<%= _urls.accountSettings %>"><i class="fa-solid fa-gear"></i><%= locale.global.accountSettingsLink %></a>
+                <a href="<%= _urls.manageProfile %>"><i class="fa-regular fa-address-card"></i><%= locale.global.manageProfileLink %></a>
+                <a href="<%= _urls.viewProfile %>"><i class="fa-regular fa-circle-user"></i><%= locale.global.viewProfileLink %></a>
+                <a href="<%= _urls.notificationSettings %>"><i class="fa-regular fa-bell"></i><%= locale.global.notificationSettingsLink %></a>
+                <a href="<%= _urls.messenger %>"><i class="fa-regular fa-envelope"></i><%= locale.global.messengerLink %></a>
+                <% if (isModerator || isAdmin) { %>
+                    <strong></strong>
+                <% } %>
+                <% if (isModerator) { %>
+                    <a href="<%= _urls.moderatorToolBox %>"><i class="fa-solid fa-toolbox"></i><%= locale.global.moderatorToolBoxLink %></a>
+                <% } %>
+                <% if (isAdmin) { %>
+                    <a href="<%= _urls.administratorControlPanel %>" target="_blank"><i class="fa-solid fa-screwdriver-wrench"></i><%= locale.global.administratorControlPanelLink %></a>
+                <% } %>
+                <strong></strong>
+                <a href="<%= _urls.signOut %>"><i class="fa-solid fa-right-from-bracket"></i><%= locale.global.signOutLink %></a>
+            </span>
+        </div>
+        <div class="dropDownMenu" id="ddm-locale">
+            <span class="dropDownMenuLinks">
+                <% localeThemeData.locales.forEach(locale => { %>
+                    <a href="<%= locale.url %>"><%= locale.name %></a>
+                <% }); %>
+            </span>
+        </div>
+        <div class="dropDownMenu" id="ddm-themes">
+            <span class="dropDownMenuLinks">
+                <% localeThemeData.themes.forEach(theme => { %>
+                    <a href="<%= theme.url %>"><%= theme.name %></a>
+                <% }); %>
+            </span>
+        </div>
+        <header>
+            <div class="header-grid">
+                <div>
+                    <a href="<%= _urls.forumsMenu %>" class="tooltip tooltip--left" data-title="<%= settings.communityTitle %>">
+                        <% if (settings.communityLogoType === 'image') { %>
+                            <img src="<%= imagesetUrl %>/images/<%= settings.communityLogo %>" alt="*">
+                        <% } else { %>
+                            <%= settings.communityTitle %>
+                        <% } %>
+                    </a>
+                </div>
+                <div class="menu-links">
+                    <% if (permissions.forums) { %>
+                        <a href="<%= _urls.forumsMenu %>"><%= locale.global.forumsMenuLink %></a>
+                    <% } %>
+                    <% if (permissions.members) { %>
+                        <a href="<%= _urls.membersMenu %>"><%= locale.global.membersMenuLink %></a>
+                    <% } %>
+                    <% if (permissions.search) { %>
+                        <a href="<%= _urls.searchMenu %>"><%= locale.global.searchMenuLink %></a>
+                    <% } %>
+                    <% if (permissions.whosOnline || permissions.tags || permissions.help || permissions.calendar || permissions.unreadContent || permissions.latestContent) { %>
+                        <a href="javascript:void(0);" id="ddm-more-link" data-menu="ddm-more" data-link="ddm-more-link" data-ignored="ddm-more-icon" data-spacing="48" onclick="openDropDownMenu(this);"><%= locale.global.moreLink %><i class="fa-solid fa-chevron-down" id="ddm-more-icon"></i></a>
+                    <% } %>
+                </div>
+                <div class="header-grid-right">
+                    <% if (signedIn) { %>
+                        <div class="memberSection">
+                            <div class="memberSectionGrid">
+                                <div>
+                                    <div class="userSideBySideGrid">
+                                        <div><%- photo %></div>
+                                        <div class="memberMenuLink"><a href="javascript:void();" id="ddm-membermenu-link" data-menu="ddm-membermenu" data-link="ddm-membermenu-link" data-ignored="ddm-membermenu-icon" data-spacing="48" onclick="openDropDownMenu(this);"><%= member.getName() %><i class="fa-solid fa-angle-down" id="ddm-membermenu-icon"></i></a></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="memberSectionGridRight">
+                                        <span><a href="javascript:void(0);" class="tooltip tooltip--left" data-title="<%= locale.global.notificationsTooltip %>"><i class="fa-solid fa-bell"></i></a></span>
+                                        <span><a href="javascript:void(0);" class="tooltip tooltip--left" data-title="<%= locale.global.messengerTooltip %>"><i class="fa-solid fa-inbox"></i></a></span>
+                                        <span><a href="javascript:void(0);" class="tooltip tooltip--left" data-title="<%= locale.global.moderatorToolBoxTooltip %>"><i class="fa-solid fa-toolbox"></i></a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } else { %>
+                        <span class="guests-links">
+                            <a href="<%= signInUrl %>"><i class="fa-solid fa-key"></i><%= locale.global.signInLink %></a>
+                            <% if (settings.signUpEnabled) { %>
+                                <a href="<%= signUpUrl %>"><i class="fa-solid fa-user-plus"></i><%= locale.global.signUpLink %></a>
+                            <% } %>
+                        </span>
+                    <% } %>
+                </div>
+            </div>
+        </header>
+        <div class="floater">
+            <% if (showBreadcrumbs) { %>
+                <div class="breadcrumbsTop">
+                    <i class="fa-solid fa-house"></i>
+                    <% let initial = true; %>
+                    <% breadcrumbs.forEach(crumb => { %>
+                        <% if (!initial) { %>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        <% } %>
+                        <% initial = false; %>
+                        <% if (crumb.selected) { %>
+                            <a href="<%= crumb.url %>" class="selected"><%= crumb.title %></a>
+                        <% } else { %>
+                            <a href="<%= crumb.url %>"><%= crumb.title %></a>
+                        <% } %>
+                    <% }) %>
+                </div>
+            <% } %>
+            <div class="contentBox">
+                <%- body %>
+            </div>
+            <% if (showBreadcrumbs) { %>
+                <div class="breadcrumbsBottom">
+                    <i class="fa-solid fa-house"></i>
+                    <% let initial = true; %>
+                    <% breadcrumbs.forEach(crumb => { %>
+                        <% if (!initial) { %>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        <% } %>
+                        <% initial = false; %>
+                        <% if (crumb.selected) { %>
+                            <a href="<%= crumb.url %>" class="selected"><%= crumb.title %></a>
+                        <% } else { %>
+                            <a href="<%= crumb.url %>"><%= crumb.title %></a>
+                        <% } %>
+                    <% }) %>
+                </div>
+            <% } %>
+            <footer>
+                <div class="footerGrid">
+                    <div class="footerGridLeft">
+                        <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.languagesTooltip %>" id="ddm-locale-link" data-menu="ddm-locale" data-link="ddm-locale-link" data-ignored="ddm-locale-icon" data-spacing="48" onclick="openDropDownMenu(this);"><i class="fa-solid fa-language" id="ddm-locale-icon"></i></a>
+                        <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.themesTooltip %>" id="ddm-themes-link" data-menu="ddm-themes" data-link="ddm-themes-link" data-ignored="ddm-themes-icon" data-spacing="48" onclick="openDropDownMenu(this);"><i class="fa-solid fa-paintbrush" id="ddm-themes-icon"></i></a>
+                        <a href="<%= _urls.markAll %>" class="tooltip tooltip--top" data-title="<%= locale.global.markAllTooltip %>"><i class="fa-solid fa-check"></i></a>
+                        <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.cookiesTooltip %>"><i class="fa-solid fa-cookie-bite"></i></a>
+                        <% if (settings.privacyPolicyLinkEnabled && settings.privacyPolicyLinkUrl.length > 0) { %>
+                            <a href="<%= settings.privacyPolicyLinkUrl %>" target="_blank" class="tooltip tooltip--top" data-title="<%= locale.global.privacyPolicyTooltip %>"><i class="fa-solid fa-user-lock"></i></a>
+                        <% } %>
+                        <% if (settings.contactUsLinkEnabled && settings.contactUsLinkUrl.length > 0) { %>
+                            <a href="<%= settings.contactUsLinkUrl %>" target="_blank" class="tooltip tooltip--top" data-title="<%= locale.global.contactUsTooltip %>"><i class="fa-solid fa-envelope"></i></a>
+                        <% } %>
+                    </div>
+                    <div class="alignCenter"><%- allTimes %></div>
+                    <div class="alignRight footerGridRight"><%- poweredBy %></div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

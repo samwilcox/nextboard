@@ -1,0 +1,17 @@
+<div class="dialog" id="dialog-likelist-<%= contentType %>-<%= contentId %>">
+    <div class="dialogHeader">
+        <div class="dualHorizontalGridCentered">
+            <div class="title"><%= locale.likeHelper.likedDialogTitle %></div>
+            <div class="alignRight dialogClose"><a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.closeDialogTooltip %>" onclick="closeDialog(this);"><i class="fa-solid fa-xmark"></i></a></div>
+        </div>
+    </div>
+    <div class="dialogContent">
+        <div class="dialogScroller">
+            <% if (likes.length > 0) { %>
+                <%- likes %>
+            <% } else { %>
+                <%= locale.likeHelper.noCurrentLikes %>
+            <% } %>
+        </div>
+    </div>
+</div>

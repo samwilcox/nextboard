@@ -1,0 +1,276 @@
+<link rel="stylesheet" href="<%= themeCssUrl %>/editor.css">
+<script type="module" src="<%= baseUrl %>/js/editor.js"></script>
+<script type="module">
+    import { registerEditor, changeFont, loadEmoticons, loadTrendingGifs, getEditorById } from "<%= baseUrl %>/js/editor.js";
+    registerEditor('<%= id %>');
+    loadEmoticons('<%= id %>');
+    loadTrendingGifs('ddm-editor-<%= id %>-gif-container', `<%= id %>`);
+    textEditors['<%= id %>'] = getEditorById('<%= id %>'); 
+</script>
+
+<% if (toolbar.enabled && toolbar.options.emoticons) { %>
+    <span style="display: none;">
+        <span id="editor-<%= id %>-emoticon-category-header">
+            <div class="dropDownMenuCategoryHeader" id="category-header"></div>
+        </span>
+        <span id="editor-<%= id %>-emoticon-category-content">
+            <div class="dropDownMenuCategoryContent" id="category-content"></div>
+        </span>
+    </span>
+<% } %>
+
+<div class="editorContainer">
+    <div class="editorToolbar">
+        <div class="editorToolbarInner">
+            <% if (toolbar.enabled && (toolbar.options.fontFamily || toolbar.options.fontSize || toolbar.options.fontColor)) { %>
+                <span class="selection">
+                    <% if (toolbar.options.fontFamily) { %>
+                        <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.fontTooltip %> %>" id="ddm-editor-<%= id %>-fonts-link" data-menu="ddm-editor-<%= id %>-fonts" data-link="ddm-editor-<%= id %>-fonts-link" data-ignored="ddm-editor-<%= id %>-fonts-icon1,ddm-editor-<%= id %>-fonts-icon2" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-font" id="ddm-editor-<%= id %>-fonts-icon1"></i>Font<i class="fa-solid fa-caret-down" id="ddm-editor-<%= id %>-fonts-icon2"></i></a>
+                    <% } %>
+                    <% if (toolbar.options.fontSize) { %>
+                        <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.textSizeTooltip %>" id="ddm-editor-<%= id %>-fontsize-link" data-menu="ddm-editor-<%= id %>-fontsize" data-link="ddm-editor-<%= id %>-fontsize-link" data-ignored="ddm-editor-<%= id %>-fontsize-icon1,ddm-editor-<%= id %>-fontsize-icon2" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-text-height" id="ddm-editor-<%= id %>-fontsize-icon1"></i>Size<i class="fa-solid fa-caret-down" id="ddm-editor-<%= id %>-fontsize-icon2"></i></a>
+                    <% } %>
+                    <% if (toolbar.options.fontSize) { %>
+                        <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.textColorTooltip %>" id="ddm-editor-<%= id %>-fontcolor-link" data-menu="ddm-editor-<%= id %>-fontcolor" data-link="ddm-editor-<%= id %>-fontcolor-link" data-ignored="ddm-editor-<%= id %>-fontcolor-icon1,ddm-editor-<%= id %>-fontcolor-icon2" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-fill" id="ddm-editor-<%= id %>-fontcolor-icon1"></i>Color<i class="fa-solid fa-caret-down" id="ddm-editor-<%= id %>-fontcolor-icon2"></i></a>
+                    <% } %>
+                </span>
+            <% } %>
+            <span class="item">
+                <% if (toolbar.options.bold) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.boldTooltip %>" id="editor-<%= id %>-bold"><i class="fa-solid fa-bold"></i></a>
+                <% } %>
+                <% if (toolbar.options.italic) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.italicTooltip %>" id="editor-<%= id %>-italic"><i class="fa-solid fa-italic"></i></a>
+                <% } %>
+                <% if (toolbar.options.underline) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.underlineTooltip %>" id="editor-<%= id %>-underline"><i class="fa-solid fa-underline"></i></a>
+                <% } %>
+                <% if (toolbar.options.strikethrough) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.strikethroughTooltip %>" id="editor-<%= id %>-strikethrough"><i class="fa-solid fa-strikethrough"></i></a>
+                <% } %>
+                <% if (toolbar.options.link) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.insertHyperlinkTooltip %>" id="editor-<%= id %>-hyperlink" data-menu="ddm-editor-<%= id %>-hyperlink" data-link="editor-<%= id %>-hyperlink" data-ignored="ddm-editor-<%= id %>-hyperlink-icon,ddm-editor-<%= id %>-hyperlink-body,ddm-editor-<%= id %>-hyperlink-rowgrid,ddm-editor-<%= id %>-hyperlink-columngrid1,ddm-editor-<%= id %>-hyperlink-columngrid2,ddm-editor-<%= id %>-hyperlink-titlediv,ddm-editor-<%= id %>-hyperlink-titleinputdiv,ddm-editor-<%= id %>-hyperlink-urldiv,ddm-editor-<%= id %>-hyperlink-urlinputdiv,ddm-editor-<%= id %>-hyperlink-titleinput,ddm-editor-<%= id %>-hyperlink-urlinput,ddm-editor-<%= id %>-hyperlink-columngrid3,ddm-editor-<%= id %>-hyperlink-select,ddm-editor-<%= id %>-hyperlink-windowdiv,ddm-editor-<%= id %>-hyperlink-windowinputdiv,ddm-editor-<%= id %>-hyperlink-button" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-link" id="ddm-editor-<%= id %>-hyperlink-icon"></i></a>
+                <% } %>
+                <% if (toolbar.options.image) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.insertImageTooltip %>" id="ddm-editor-<%= id %>-insertimage-link" data-menu="ddm-editor-<%= id %>-insertimage" data-link="ddm-editor-<%= id %>-insertimage-link" data-ignored="ddm-editor-<%= id %>-insertimage-icon,ddm-editor-<%= id %>-insertimage-cblabel1,ddm-editor-<%= id %>-insertimage-cblabel2,ddm-editor-<%= id %>-insertimage-columngrid1,ddm-editor-<%= id %>-insertimage-columngrid2,ddm-editor-<%= id %>-insertimage-divcb1,ddm-editor-<%= id %>-insertimage-empty,ddm-editor-<%= id %>-insertimage-enablecustomdim,ddm-editor-<%= id %>-insertimage-grid1,ddm-editor-<%= id %>-insertimage-grid2,ddm-editor-<%= id %>-insertimage-grid3,ddm-editor-<%= id %>-insertimage-grid4,ddm-editor-<%= id %>-insertimage-heightdiv1,ddm-editor-<%= id %>-insertimage-heightdiv2,ddm-editor-<%= id %>-insertimage-heightinput,ddm-editor-<%= id %>-insertimage-imagebody,ddm-editor-<%= id %>-insertimage-maintainar,ddm-editor-<%= id %>-insertimage-titlediv1,ddm-editor-<%= id %>-insertimage-titleinputdiv1,ddm-editor-<%= id %>-insertimage-urlinput,ddm-editor-<%= id %>-insertimage-widthdiv,ddm-editor-<%= id %>-insertimage-widthdiv2,ddm-editor-<%= id %>-insertimage-widthinput,ddm-editor-<%= id %>-insertimage-button,ddm-editor-<%= id %>-insertimage-columngrid3,ddm-editor-<%= id %>-insertimage-grid4,ddm-editor-<%= id %>-insertimage-ratioselect,ddm-editor-<%= id %>-insertimage-titlediv2,ddm-editor-<%= id %>-insertimage-titleinputdiv2" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-image" id="ddm-editor-<%= id %>-insertimage-icon"></i></a>
+                <% } %>
+                <% if (toolbar.options.insert.enabled && (toolbar.options.insert.options.orderedList || toolbar.options.insert.options.unorderedList || toolbar.options.insert.options.horizontalRule || toolbar.options.insert.options.quote)) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.insertTooltip %>"  id="ddm-editor-<%= id %>-add-link" data-menu="ddm-editor-<%= id %>-add" data-link="ddm-editor-<%= id %>-add-link" data-ignored="ddm-editor-<%= id %>-add-icon" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-circle-plus" id="ddm-editor-<%= id %>-add-icon"></i></a>
+                <% } %>
+                <% if (toolbar.options.emoticons) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.insertEmoticonTooltip %>"  id="ddm-editor-<%= id %>-emoticons-link" data-menu="ddm-editor-<%= id %>-emoticons" data-link="ddm-editor-<%= id %>-emoticons-link" data-ignored="ddm-editor-<%= id %>-emoticons-icon" data-spacing="34" onclick="openDropDownMenu(this); loadEmoticons('<%= id %>');"><i class="fa-solid fa-face-smile" id="ddm-editor-<%= id %>-emoticons-icon"></i></a>
+                <% } %>
+                <% if (toolbar.options.gifs) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.insertGif %>" id="ddm-editor-<%= id %>-gif-link" data-menu="ddm-editor-<%= id %>-gif" data-link="ddm-editor-<%= id %>-gif-link" data-ignored="ddm-editor-<%= id %>-gif-icon,ddm-editor-<%= id %>-gif-container,ddm-editor-<%= id %>-gif-scroller,ddm-editor-<%= id %>-gif-searchdiv,ddm-editor-<%= id %>-gif-searchinput" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-film" id="ddm-editor-<%= id %>-gif-icon"></i></a>
+                <% } %>
+                <% if (toolbar.options.additionalFormatting.enabled && (toolbar.options.additionalFormatting.options.code || toolbar.options.additionalFormatting.options.subscript || toolbar.options.additionalFormatting.options.superscript || toolbar.options.additionalFormatting.options.alignLeft || toolbar.options.additionalFormatting.options.alignCenter || toolbar.additionalFormatting.options.alignRight || toolbar.options.additionalFormatting.options.alignJustify)) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.additionalFormattingOptionsTooltip %>"  id="ddm-editor-<%= id %>-formatting-link" data-menu="ddm-editor-<%= id %>-formatting" data-link="ddm-editor-<%= id %>-formatting-link" data-ignored="ddm-editor-<%= id %>-formatting-icon" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-square-caret-down" id="ddm-editor-<%= id %>-formatting-icon"></i></a>
+                <% } %>
+                <% if (toolbar.options.undo) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.undoTooltip %>"  id="editor-<%= id %>-undo" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.undoTooltip %>"><i class="fa-solid fa-rotate-left"></i></a>
+                <% } %>
+                <% if (toolbar.options.redo) { %>
+                    <a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.redoTooltip %>"  id="editor-<%= id %>-redo" class="tooltip tooltip--top" data-title="<%= locale.editorHelper.redoTooltip %>"><i class="fa-solid fa-rotate-right"></i></a>
+                <% } %>
+            </span>
+        </div>
+    </div>
+    <div class="editor" id="editor-<%= id %>"></div>
+    <input type="hidden" name="editor" id="editor-<%= id %>-field">
+    <% if (flags.charCount || flags.wordCount) { %>
+        <div class="editorFooter">
+            <% if (flags.charCount) { %>
+                <span><strong><%= locale.editorHelper.characterCount %></strong> <span id="editor-<%= id %>-char-count">0</span></span>
+            <% } %>
+            <% if (flags.wordCount) { %>
+                <span><strong><%= locale.editorHelper.wordCount %></strong> <span id="editor-<%= id %>-word-count">0</span></span>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+
+<% if (toolbar.enabled && toolbar.options.fontFamily) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-fonts">
+        <div class="dropDownMenuScroller">
+            <span class="dropDownMenuLinks">
+                <% fonts.forEach(font => { %>
+                    <a href="javascript:void(0);" id="editor-<%= id %>-<%= font.identifier %>" data-font="<%= font.name %>" style="font-family: <%= font.name %>, <%= font.fontFamily %>;"><%= font.name %></a>
+                <% }) %>
+            </span>
+        </div>
+    </div>
+<% } %>
+
+<% if (toolbar.enabled && toolbar.options.fontSize) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-fontsize">
+        <div class="dropDownMenuScroller">
+            <span class="dropDownMenuLinks">
+                <% fontSizes.forEach(size => { %>
+                    <a href="javascript:void(0);" id="editor-<%= id %>-<%= size.name %>" data-size="<%= size.size %>" style="font-size: <%= size.size %>;"><%= size.name %></a>
+                <% }) %>
+            </span>
+        </div>
+    </div>
+<% } %>
+
+<% if (toolbar.enabled && toolbar.options.fontColor) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-fontcolor">
+        <div class="dropDownMenuScroller">
+            <span class="dropDownMenuLinks">
+                <% fontColors.forEach(color => { %>
+                    <a href="javascript:void(0);" id="editor-<%= id %>-<%= color.identifier %>"><span class="colorBubble" style="background-color: <%= color.hex %>;"></span><%= color.name %></a>
+                <% }) %>
+                <a href="javascript:void(0);" id="editor-<%= id %>-customcolor"><%= locale.editorHelper.customColor %></a>
+            </span>
+        </div>
+    </div>
+
+    <input type="color" name="textcolor" id="editor-<%= id %>-colorpicker" style="display: none;">
+<% } %>
+
+<% if (toolbar.enabled && toolbar.options.insert.enabled && (toolbar.options.insert.options.orderedList || toolbar.options.insert.options.unorderList || toolbar.options.insert.options.horizontalRule || toolbar.options.insert.options.quote)) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-add">
+        <span class="dropDownMenuLinks">
+            <% if (toolbar.options.insert.options.orderedList) { %>
+                <a href="javascript:void(0);" id="editor-<%= id %>-orderedlist"><i class="fa-solid fa-list-ol"></i><%= locale.editorHelper.orderedList %></a>
+            <% } %>
+            <% if (toolbar.options.insert.options.unorderedList) { %>
+                <a href="javascript:void(0);" id="editor-<%= id %>-unorderedlist"><i class="fa-solid fa-list-ul"></i><%= locale.editorHelper.unorderedList %></a>
+            <% } %>
+            <% if (toolbar.options.insert.options.horizontalRule) { %>
+                <a href="javascript:void(0);" id="editor-<%= id %>-horizontalrule"><i class="fa-solid fa-grip-lines"></i><%= locale.editorHelper.horizontalRule %></a>
+            <% } %>
+            <% if (toolbar.options.insert.options.quote) { %>
+                <a href="javascript:void(0);" id="editor-<%= id %>-quote"><i class="fa-solid fa-quote-right"></i><%= locale.editorHelper.insertQuote %></a>
+            <% } %>
+        </span>
+    </div>
+<% } %>
+
+<% if (toolbar.enabled && toolbar.options.link) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-hyperlink">
+        <div class="dropDownMenuContent" id="ddm-editor-<%= id %>-hyperlink-body">
+            <div class="fieldsGrid" id="ddm-editor-<%= id %>-hyperlink-rowgrid">
+                <div>
+                    <div class="fieldsSideBySideGrid" id="ddm-editor-<%= id %>-hyperlink-columngrid1">
+                        <div id="ddm-editor-<%= id %>-hyperlink-titlediv" class="bold"><%= locale.editorHelper.hyperlinkTitle %></div>
+                        <div id="ddm-editor-<%= id %>-hyperlink-titleinputdiv">
+                            <input type="text" name="linktitle" id="ddm-editor-<%= id %>-hyperlink-titleinput" placeholder="<%= locale.editorHelper.hyperlinkTitlePlaceholder %>" class="longerField">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="fieldsSideBySideGrid" id="ddm-editor-<%= id %>-hyperlink-columngrid2">
+                        <div id="ddm-editor-<%= id %>-hyperlink-urldiv" class="bold"><%= locale.editorHelper.hyperlinkUrl %></div>
+                        <div id="ddm-editor-<%= id %>-hyperlink-urlinputdiv">
+                            <input type="url" name="linkurl" id="ddm-editor-<%= id %>-hyperlink-urlinput" placeholder="<%= locale.editorHelper.hyperlinkUrlPlaceholder %>" class="longerField">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="fieldsSideBySideGrid" id="ddm-editor-<%= id %>-hyperlink-columngrid3">
+                        <div id="ddm-editor-<%= id %>-hyperlink-windowdiv" class="bold"><%= locale.editorHelper.hyperlinkWindow %></div>
+                        <div id="ddm-editor-<%= id %>-hyperlink-windowinputdiv">
+                            <select name="linkwindow" id="ddm-editor-<%= id %>-hyperlink-select">
+                                <option value="_self"><%= locale.editorHelper.hyperlinkWindowChoiceSelf %></option>
+                                <option value="_blank" selected><%= locale.editorHelper.hyperlinkWindowChoiceBlank %></option>
+                                <option value="_parent"><%= locale.editorHelper.hyperlinkWindowChoiceParent %></option>
+                                <option value="_top"><%= locale.editorHelper.hyperlinkWindowChoiceTop %></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <input type="button" name="inserthyperlinkbutton" value="<%= locale.editorHelper.hyperlinkButton %>" class="buttonAlt" id="ddm-editor-<%= id %>-hyperlink-button">
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<% if (toolbar.enabled && toolbar.options.image) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-insertimage">
+        <div class="dropDownMenuCategoryContent" id="ddm-editor-<%= id %>-insertimage-imagebody">
+            <div class="fieldsGrid" id="ddm-editor-<%= id %>insertimage--rowgrid">
+                <div id="ddm-editor-<%= id %>-insertimage-grid1">
+                    <div class="fieldsSideBySideGrid" id="ddm-editor-<%= id %>-insertimage-columngrid1">
+                        <div id="ddm-editor-<%= id %>-insertimage-titlediv1" class="bold"><%= locale.editorHelper.insertImageUrl %></div>
+                        <div id="ddm-editor-<%= id %>-insertimage-titleinputdiv1">
+                            <input type="url" name="imageurl" id="ddm-editor-<%= id %>-insertimage-urlinput" placeholder="<%= locale.editorHelper.insertImagePlaceholder %>" class="longerField">
+                        </div>
+                    </div>
+                </div>
+                <div id="ddm-editor-<%= id %>-insertimage-grid2">
+                    <div class="checkboxAlt" id="ddm-editor-<%= id %>-insertimage-divcb1">
+                        <input id="ddm-editor-<%= id %>-insertimage-enablecustomdim" name="enablecustomdimensions" class="substituted" type="checkbox" aria-hidden="true" />
+                        <label for="ddm-editor-<%= id %>-insertimage-enablecustomdim" id="ddm-editor-<%= id %>-insertimage-cblabel1"><%= locale.editorHelper.insertImageCustomDimensions %></label>
+                    </div>
+                </div>
+                <div id="ddm-editor-<%= id %>-insertimage-grid3" style="display: none;">
+                    <div class="checkboxAlt" id="ddm-editor-<%= id %>-insertimage-divcb1">
+                        <input id="ddm-editor-<%= id %>-insertimage-maintainar" name="maintainar" class="substituted" type="checkbox" aria-hidden="true" />
+                        <label for="ddm-editor-<%= id %>-insertimage-maintainar" id="ddm-editor-<%= id %>-insertimage-cblabel2"><%= locale.editorHelper.insertImageMaintainAspectRatio %></label>
+                    </div>
+                </div>
+                <div>
+                    <div class="fieldsSideBySideGrid" id="ddm-editor-<%= id %>-insertimage-columngrid2" style="display: none;">
+                        <div id="ddm-editor-<%= id %>-insertimage-titlediv2" class="bold"><%= locale.editorHelper.insertImageRatio %></div>
+                        <div id="ddm-editor-<%= id %>-insertimage-titleinputdiv2">
+                            <select name="ratio" id="ddm-editor-<%= id %>-insertimage-ratioselect">
+                                <option value="1:1">1:1</option>
+                                <option value="4:3">4:3</option>
+                                <option value="16:9" selected>16:9</option>
+                                <option value="21:9">21:9</option>
+                                <option value="3:2">3:2</option>
+                                <option value="5:4">5:4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="ddm-editor-<%= id %>-insertimage-grid4" style="display: none;">
+                    <div class="dualFieldGrid" id="ddm-editor-<%= id %>-insertimage-columngrid3">
+                        <div class="bold" id="ddm-editor-<%= id %>-insertimage-widthdiv"><%= locale.editorHelper.insertImageWidth %></div>
+                        <div id="ddm-editor-<%= id %>-insertimage-widthdiv2"><input type="number" min="0" name="imagewidth" data-width="ddm-editor-<%= id %>-insertimage-widthinput" data-height="ddm-editor-<%= id %>-insertimage-heightinput" data-enabled="ddm-editor-<%= id %>-insertimage-maintainar" data-ratio="ddm-editor-<%= id %>-insertimage-ratioselect" id="ddm-editor-<%= id %>-insertimage-widthinput"></div>
+                        <div id="ddm-editor-<%= id %>-insertimage-empty"></div>
+                        <div class="bold" id="ddm-editor-<%= id %>-insertimage-heightdiv1"><%= locale.editorHelper.insertImageHeight %></div>
+                        <div id="ddm-editor-<%= id %>-insertimage-heightdiv2"><input type="number" min="0" name="imageheight"  data-width="ddm-editor-<%= id %>-insertimage-widthinput" data-height="ddm-editor-<%= id %>-insertimage-heightinput" data-enabled="ddm-editor-<%= id %>-insertimage-maintainar" data-ratio="ddm-editor-<%= id %>-insertimage-ratioselect" id="ddm-editor-<%= id %>-insertimage-heightinput"></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="button" name="insertimagebutton" value="<%= locale.editorHelper.insertImageButton %>" class="buttonAlt" id="ddm-editor-<%= id %>-insertimage-button">
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<% if ( toolbar.enabled && toolbar.options.emoticons) { %>
+    <div class="dropDownMenu noPadding" id="ddm-editor-<%= id %>-emoticons" style="width: 300px;">
+        <div class="dropDownMenuScroller" id="editor-<%= id %>-emoticons-container"></div>
+    </div>
+<% } %>
+
+<% if ( toolbar.enabled && toolbar.options.additionalFormatting.enabled && (toolbar.options.additionalFormatting.options.code || toolbar.options.additionalFormatting.options.subscript || toolbar.options.additionalFormatting.options.superscript || toolbar.options.additionalFormatting.options.alignLeft || toolbar.options.additionalFormatting.options.alignCenter || toolbar.additionalFormatting.options.alignRight || toolbar.options.additionalFormatting.options.alignJustify)) { %>
+    <div class="dropDownMenu" id="ddm-editor-<%= id %>-formatting">
+        <span class="dropDownMenuLinks">
+            <a href="javascript:void(0);" id="editor-<%= id %>-inlinecode"><i class="fa-solid fa-code"></i><%= locale.editorHelper.inlineCode %></a>
+            <a href="javascript:void(0);" id="editor-<%= id %>-subscript"><i class="fa-solid fa-subscript"></i><%= locale.editorHelper.subscript %></a>
+            <a href="javascript:void(0);" id="editor-<%= id %>-superscript"><i class="fa-solid fa-superscript"></i><%= locale.editorHelper.superscript %></a>
+            <a href="javascript:void(0);" id="editor-<%= id %>-alignleft"><i class="fa-solid fa-align-left"></i><%= locale.editorHelper.alignLeft %></a>
+            <a href="javascript:void(0);" id="editor-<%= id %>-aligncenter"><i class="fa-solid fa-align-center"></i><%= locale.editorHelper.alignCenter %></a>
+            <a href="javascript:void(0);" id="editor-<%= id %>-alignright"><i class="fa-solid fa-align-right"></i><%= locale.editorHelper.alignRight %></a>
+            <a href="javascript:void(0);" id="editor-<%= id %>-alignjustify"><i class="fa-solid fa-align-justify"></i><%= locale.editorHelper.alignJustify %></a>
+        </span>
+    </div>
+<% } %>
+ 
+<% if (toolbar.enabled && toolbar.options.gifs) { %>
+    <div class="dropDownMenu noPadding" id="ddm-editor-<%= id %>-gif">
+        <div class="editorGifSearch" id="ddm-editor-<%= id %>-gif-searchdiv">
+            <input type="search" name="gifquery" id="ddm-editor-<%= id %>-gif-searchinput"  data-editor="<%= id %>" class="longField" placeholder="<%= locale.editorHelper.insertGifPlaceholder %>">
+        </div>
+        <div class="dropDownMenuScroller" id="ddm-editor-<%= id %>-gif-scroller">
+            <div class="dropDownMenuContent editorGifFlex" data-editor="<%= id %>" id="ddm-editor-<%= id %>-gif-container"></div>
+        </div>
+    </div>
+<% } %>

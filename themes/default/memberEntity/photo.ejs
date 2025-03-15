@@ -1,0 +1,9 @@
+<% if (url) { %>
+    <a href="<%= url %>">
+<% } %>
+    <span class="<% if (type === 'normal') { %>photo<% } else if (type === 'post') { %>photoPost<% } else { %>photoThumbnail<% } %>">
+        <img src="<%= source %>" alt="*">
+    </span>
+<% if (url) { %>
+    </a>
+<% } %>

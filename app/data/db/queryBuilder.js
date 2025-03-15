@@ -126,6 +126,16 @@ class QueryBuilder {
     }
 
     /**
+     * Adds just a single "WHERE" clause.
+     * 
+     * @returns {QueryBuilder} The QueryBuilder instance to allow for chaining.
+     */
+    onlyWhere() {
+        this.query += 'WHERE ';
+        return this;
+    }
+
+    /**
      * Adds an IN condition to the WHERE clause.
      * 
      * @param {string} column - The column name (e.g., 'status'). 

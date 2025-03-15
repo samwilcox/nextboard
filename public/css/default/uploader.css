@@ -1,0 +1,25 @@
+.uploader { width: auto; border-radius: 8px; background-color: #101316; border: 1px solid #323C46; padding: 20px; }
+.uploader.dragging { background-color: #3A434C; border: 1px dashed #697E91; }
+.uploaderVerticalGrid { display: grid; grid-template-rows: auto auto; gap: 30px; }
+.uploaderGrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; align-items: center; }
+.uploaderTitle { font-size: 20px; font-weight: 900; }
+.uploaderMaxSize { text-align: right; }
+.uploaderMaxSize strong { font-weight: 900; }
+.uploaderBottom { text-align: center; }
+.uploaderInfoGrid { display: grid; grid-template-rows: auto auto; gap: 20px; }
+.uploaderDragInfo { text-align: center; font-size: 16px; }
+.uploaderFileUpload { display: none; }
+.uploaderPreviewContainer { width: auto; display: none; }
+.uploaderPreviewBox { width: auto; border-radius: 8px; background-color: #262D37; border: 1px solid #46556C; padding: 20px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; margin-top: 6px; gap: 20px; }
+.uploaderPreviewItem { flex: 0 1 auto; border-radius: 8px; background-color: #101316; border: 1px solid #7789A5; padding: 20px; position: relative; }
+.uploaderPreviewItemPhotoGrid { display: grid; grid-template-rows: auto auto auto auto; gap: 10px; }
+.uploaderImage { border: 1px solid #7789A5; width: 200px; height: auto; border-radius: 8px; }
+.uploaderFileName { text-align: center; font-weight: 800; }
+.uploaderFileSize { text-align: center; font-weight: 600; }
+.uploaderImageGrid { display: grid; grid-template-columns: auto auto; gap: 20px; align-items: center; width: fit-content; margin-left: auto; margin-right: auto; }
+.uploaderPreviewAction a, .uploaderPreviewAction a:link, .uploaderPreviewAction a:active, .uploaderPreviewAction a:visited { color: #0FADFF; text-decoration: none; transition: 0.5s ease all; font-size: 12px; }
+.uploaderPreviewAction a:hover { color: #73CFFF; text-decoration: none; transition: 0.5s ease all; }
+.uploaderPreviewAction a i { margin-right: 8px; }
+.uploaderPreviewItemGrid { display: grid; grid-template-rows: auto auto auto auto; gap: 10px; }
+.uploaderPreviewFileIcon i { font-size: 80px; }
+.uploaderPreviewFileIcon { text-align: center; }

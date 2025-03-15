@@ -1,0 +1,8 @@
+<div class="errorPageTitle"><i class="fa-solid fa-triangle-exclamation"></i><%= errorTitle %></div>
+<div class="errorPageBox"><%- errorMessage %></div>
+<div class="errorPageBottom">
+    <div class="dualHorizontalGridCentered">
+        <div class="iconSpace"><a href="javascript:window.history.back();"><i class="fa-solid fa-arrow-left"></i><%= locale.errorMiddleware.goBack %></a></div>
+        <div class="alignRight"><%- statusCode %></div>
+    </div>
+</div>

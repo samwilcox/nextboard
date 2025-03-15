@@ -1,0 +1,6 @@
+<div class="tagInputContainer">
+    <div class="selectedTags" id="selected-tags-<%= id %>" style="display: none;"></div>
+    <input type="text" id="tag-input-<%= id %>" data-id="<%= id %>" class="tagInput" placeholder="<%= locale.utilHelper.tagsPlaceholder %>" autocomplete="off" onkeyup="tagOnKeyUp(event, this);">
+    <ul class="tagSuggestions" id="tag-suggestions-<%= id %>"></ul>
+</div>
+<input type="hidden" name="tags" id="tags-list-<%= id %>" value="">

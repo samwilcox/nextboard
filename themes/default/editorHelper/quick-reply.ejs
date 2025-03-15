@@ -1,0 +1,85 @@
+<% if (marginTop) { %>
+    <div class="marginTop"></div>
+<% } %>
+<form name="quickreplyform" id="quickreplyform-<%= editorId %>" action="<%= formAction %>" method="post" data-id="<%= editorId %>" enctype="application/x-www-form-urlencoded"<% if (onSubmit) { %> onsubmit="<%- onSubmit %>"<% } %>>
+    <div class="quickReplyBox" id="quickreply-box-<%= editorId %>">
+        <div class="quickReplyGrid">
+            <div><%- photo %></div>
+            <div>
+                <div class="quickReplyClick" id="quickreply-click-<%= editorId %>" data-id="<%= editorId %>" onclick="showQuickReply(this);"><%- initialText %></div>
+                <div id="quickreply-editor-<%= editorId %>" style="display: none;">
+                    <%- editor %>
+                    <%- uploaderComponent %>
+                    <div class="marginTop"></div>
+                    <% if (includeFollow) { %>
+                        <div class="checkboxGrid">
+                            <div>
+                                <div class="checkbox">
+                                    <span class="checkbox">
+                                        <input type="checkbox" name="follow" value="1" id="follow-checkbox-<%= editorId %>">
+                                        <svg>
+                                        <use xlink:href="#checkbox" class="checkbox"></use>
+                                        </svg>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                                        <symbol id="checkbox" viewBox="0 0 22 22">
+                                        <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
+                                        </symbol>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="follow-checkbox-<%= editorId %>">
+                                    <span class="checkboxTitle"><%- followWordage %></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="marginBottom"></div>
+                    <% } %>
+                    <% if (signature) { %>
+                        <div class="checkboxGrid">
+                            <div>
+                                <div class="checkbox">
+                                    <span class="checkbox">
+                                        <input type="checkbox" name="includesignature" value="1" id="signature-checkbox-<%= editorId %>"<% if (signatureSelected) { %> checked<% } %>>
+                                        <svg>
+                                        <use xlink:href="#checkbox" class="checkbox"></use>
+                                        </svg>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                                        <symbol id="checkbox" viewBox="0 0 22 22">
+                                        <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
+                                        </symbol>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="signature-checkbox-<%= editorId %>">
+                                    <span class="checkboxTitle"><%- locale.editorHelper.includeSignature %></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="marginBottom"></div>
+                    <% } %>
+                    <% if (includeTags) { %>
+                        <div class="marginTop"></div>
+                            <%- tagsField %>
+                        <div class="marginBottom"></div>
+                    <% } %>
+                    <% if (hiddenFields) { %>
+                        <% Object.entries(hiddenFields).forEach(([key, value]) => { %>
+                            <input type="hidden" name="<%= key %>" value="<%= value %>">
+                        <% }) %>
+                    <% } %>
+                    <% if (includeCSRF) { %>
+                        <input type="hidden" name="_csrfToken" value="<%= csrfToken %>">
+                    <% } %>
+                    <input type="submit" name="quickreply-submit-<%= editorId %>" id="quickreply-submit-<%= editorId %>" value="<%- buttonWordage %>">
+                </div>
+            </div>
+        </div>
+</form>
+</div>
+<% if (marginBottom) { %>
+    <div class="marginBottom"></div>
+<% } %>

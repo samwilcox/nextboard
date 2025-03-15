@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="<%= themeCssUrl %>/uploader.css">
+<script>
+    const uploadType = '<%= type %>';
+</script>
+<script src="<%= baseUrl %>/js/uploader.js"></script>
+<% if (marginTop) { %>
+    <div class="marginTop"></div>
+<% } %>
+<div class="uploader" data-id="<%= id %>">
+    <div class="uploaderVerticalGrid">
+        <div>
+            <div class="uploaderGrid">
+                <div class="uploaderTitle">File Uploader</div>
+                <div class="uploaderDragInfo"><%= locale.uploaderHelper.dragDrop %></div>
+                <div class="uploaderMaxSize"><%- maxFileSize %></div>
+            </div>
+        </div>
+        <div class="uploaderBottom">
+            <div class="uploaderInfoGrid">
+                <div><a href="javascript:void(0);" data-id="<%= id %>" onclick="manualSelect(this);"><%= locale.uploaderHelper.clickToUpload %></a></div>
+                <div><a href="javascript:void(0);" data-id="<%= id %>" onclick="selectExisting(this);"><%= locale.uploaderHelper.selectExisting %></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="file" name="file" id="file-<%= id %>-input" class="uploaderFileUpload">
+<input type="hidden" name="attachments" id="uploader-attachments-<%= id %>">
+<div class="uploaderPreviewContainer" id="uploader-preview-container-<%= id %>">
+    <div class="uploaderPreviewBox" id="uploader-preview-<%= id %>"></div>
+</div>
+<% if (marginBottom) { %>
+    <div class="marginBottom"></div>
+<% } %>

@@ -1,0 +1,77 @@
+<div class="pollBoxHeader">
+    <div class="dualHorizontalGridCentered">
+        <div class="pollBoxHeaderTitle"><i class="fa-solid fa-square-poll-vertical"></i><%= locale.topicHelper.pollTitle %></div>
+        <div class="alignRight iconSpace">
+            <% if (member.isSignedIn()) { %>
+                <% if (hasVoted) { %>
+                    <i class="fa-solid fa-users"></i><%- totalParticipants %>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</div>
+<div class="<% if (footer) { %>pollBoxContentWithFooter<% } else { %>pollBoxContent<% } %>">
+    <% Object.entries(poll.questions).forEach(([index, item]) => { %>
+        <div class="pollQuestionBoxHeader"><strong><%= locale.topicHelper.question %></strong> <%= item.question %></div>
+        <div class="pollQuestionBoxContent">
+            <% if (hasVoted) { %>
+                <div class="pollQuestionBoxContentResultGrid">
+                    <% Object.entries(item.options).forEach(([_index, option]) => { %>
+                        <div><%= option %></div>
+                        <div>
+                            <div class="pollPercentageGrid">
+                                <div class="pollPercentageBox"><div class="pollPercentage" style="width: <%= item.percentages[_index] %>;"></div></div>
+                                <div><%= item.percentages[_index] %></div>
+                            </div>
+                        </div>
+                        <div class="iconSpace tooltip tooltip--top" data-title="<%= locale.topicHelper.totalVotersTooltip %>"><i class="fa-solid fa-user"></i><%- utilHelper.formatNumber(item.voters[_index].length) %></div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="voteGroup">
+                    <% Object.entries(item.options).forEach(([_index, option]) => { %>
+                        <% if (item.multipleChoice) { %>
+                            <input type="checkbox" id="question-<%= index %>-option-<%= _index %>-input" class="hiddenCheckbox">
+                            <label for="question-<%= index %>-option-<%= _index %>-input" class="styledInput"><%= option %></label>
+                        <% } else { %>
+                            <input type="radio" name="mc[]" id="question-<%= index %>-option-<%= _index %>-input" class="hiddenCheckbox">
+                            <label for="question-<%= index %>-option-<%= _index %>-input" class="styledInput"><%= option %></label>
+                        <% } %>
+                    <% }) %>
+                </div>
+            <% } %>
+        </div>
+    <% }) %>
+</div>
+<% if (footer) { %>
+    <div class="pollBoxFooter">
+        <div class="pollBoxFooterGrid">
+            <div>
+                <% if (member.isSignedIn()) { %>
+                    <% if (!hasVoted) { %>
+                        <span class="pollVoteButton"><a href="javascript:void(0);" data-poll='<%- pollStringified %>' data-cast="true" data-topicid="<%= topicId %>" onclick="pollCastVote(this);"><%= locale.topicHelper.voteButton %></a></span>
+                        <span class="pollViewResultsButton"><a href="javascript:void(0);" data-poll='<%- pollStringified %>'><%= locale.topicHelper.viewResultsButton %></a></span>
+                    <% } %>
+                <% } %>
+            </div>
+            <div class="alignCenter iconSpace">
+                <% if (!poll.closed) { %>
+                    <% if (permissions.closePolls || (permissions.closeOwnPolls && isOwnPoll)) { %>
+                        <a href="javascript:void(0);"><i class="fa-solid fa-xmark"></i><%= locale.topicHelper.closePollLink %></a>
+                    <% } %>
+                <% } else { %>
+                    <a href="javascript:void(0);"><i class="fa-solid fa-up-right-from-square"></i><%= locale.topicHelper.reopenPollLink %></a>
+                <% } %>
+            </div>
+            <div class="alignRight">
+                <% if (!poll.closed && poll.expire.enabled) { %>
+                    <% localeHelper.replace('topicHelper', 'pollClosesAt', 'timestamp', dateTimeHelper.dateFormatter(poll.expire.expireDateTime, { timeAgo: false })) %>
+                <% } else if (!poll.closed && !poll.expire.enabled) { %>
+                    <%= locale.topicHelper.pollDoesNotClose %>
+                <% } else { %>
+                    <% localeHelper.replace('topicHelper', 'pollClosedAt', 'timestamp', dateTimeHelper.dateFormatter(poll.closedAt, { timeAgo: true })) %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<% } %>

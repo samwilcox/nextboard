@@ -1,0 +1,11 @@
+<div id="question-<%= questionNumber %>-option-<%= optionNumber %>">
+    <div class="pollOptionsGridColumns">
+        <div><a href="javascript:void(0);" data-question="<%= questionNumber %>" data-option="<%= optionNumber %>" onclick="deletePollOption(this);"><i class="fa-solid fa-trash-can"></i></a></div>
+        <div>
+            <div class="formGroup">
+                <input type="text" name="question-<%=questionNumber %>-option-<%= optionNumber %>" id="question-<%= questionNumber %>-option-<%= optionNumber %>-input" data-question="<%= questionNumber %>" data-option="<%= optionNumber %>"  onkeyup="pollOnOptionChange(this);" placeholder="<%= optionTitle %>">
+                <label for="question-<%= questionNumber %>-option-<%= optionNumber %>-input"><%= optionTitle %></label>
+            </div>
+        </div>
+    </div>
+</div>

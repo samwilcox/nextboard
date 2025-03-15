@@ -13,6 +13,15 @@
 
 const Settings = require('../settings');
 const indexRoutes = require('./indexRoutes');
+const ajaxRoutes = require('./ajaxRoutes');
+const forumRoutes = require('./forumRoutes');
+const authRoutes = require('./authRoutes');
+const calendarRoutes = require('./calendarRoutes');
+const profileRoutes = require('./profileRoutes');
+const topicRoutes = require('./topicRoutes');
+const postRoutes = require('./postRoutes');
+const downloadRoutes = require('./downloadRoutes');
+const createRoutes = require('./createRoutes');
 
 /**
  * Setup all the routes for NextBoard.
@@ -26,6 +35,15 @@ const setupRoutes = (app) => {
     });
 
     app.use('/', indexRoutes);
+    app.use('/ajax', ajaxRoutes);
+    app.use('/forum', forumRoutes);
+    app.use('/auth', authRoutes);
+    app.use('/calendar', calendarRoutes);
+    app.use('/profile', profileRoutes);
+    app.use('/topic', topicRoutes);
+    app.use('/post', postRoutes);
+    app.use('/download', downloadRoutes);
+    app.use('/create', createRoutes);
 };
 
 module.exports = setupRoutes;

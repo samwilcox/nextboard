@@ -1,0 +1,23 @@
+<% if (separator) { %>
+    <%- separator %>
+<% } %>
+<a href="<%= url %>"
+    <% if (includeGroupColor || includeGroupEmphasize) { %>
+        style="
+    <% } %>
+    <% if (includeGroupColor) { %>
+        color: <%= groupColor %>; 
+    <% } %>
+    <% if (includeGroupEmphasize && groupEmphasize) { %>
+        font-weight: 900; 
+    <% } %>
+    <% if (includeGroupColor || includeGroupEmphasize) { %>
+        "
+    <% } %>
+    <% if (tooltip) { %>
+        class="tooltip tooltip--<%= tooltipPlacement %>" data-title="<%= tooltip %>" 
+    <% } %>
+    <% if (includeGroupColor) { %>
+        onmouseover="this.style.color = '<%= darkenedColor %>';" onmouseout="this.style.color = '<%= groupColor %>';"
+    <% } %>
+    ><%- name %></a>

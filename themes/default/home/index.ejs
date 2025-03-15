@@ -1,0 +1,69 @@
+<% if (categoryForums.categories.length > 0) { %>
+    <% categoryForums.categories.forEach(category => { %>
+        <%- category.entity.build() %>
+        <% if (category.forums.length > 0) { %>
+            <% category.builtForums.forEach(forum => { %>
+                <%- forum %>
+            <% }) %>
+        <% } else { %>
+            No forums available in this category
+        <% } %>
+        <%- category.entity.build('footer') %>
+    <% }) %>
+<% } else { %>
+    <%= locale.index.noCategories %>
+<% } %>
+<% if (bbic.enabled && (bbic.whosOnline.display || bbic.statistics.display || bbic.tags.display)) { %>
+    <div class="bbicHeader" id="bbic-header">
+        <div class="dualHorizontalGridCentered">
+            <div><%= locale.index.bbicTitle %></div>
+            <div><div class="alignRight"><a href="javascript:void();" class="tooltip tooltip--top" data-title="Toggle" data-header="bbic-header" data-content="bbic-content" data-icon="bbic-icon" data-icon-expanded="fa-solid fa-toggle-on" data-icon-collapsed="fa-solid fa-toggle-off" onclick="toggle(this);"><i class="fa-solid fa-toggle-on" id="bbic-icon"></i></a></div></div>
+        </div>
+    </div>
+    <div id="bbic-content">
+        <% if (bbic.whosOnline.display) { %>
+            <div class="bbicSubTitle">
+                <div class="dualHorizontalGridCentered">
+                    <div><i class="fa-solid fa-earth-americas"></i><%= locale.index.whosOnlineTitle %></div>
+                    <div class="bbicRightLink alignRight"><a href="<%= urls.whosOnlineList %>"><i class="fa-solid fa-table-list"></i><%= locale.index.fullWhosOnlineList %></a></div>
+                </div>
+            </div>
+            <div class="bbicItem">
+                <div class="verticalGridBiggerGap">
+                    <div><%- bbic.whosOnline.currentlyOnline %></div>
+                    <div class="statItemsFlex"><div class="statItem"><%- bbic.whosOnline.members %></div><div class="statItem"><%- bbic.whosOnline.anonymous %></div><div class="statItem"><%- bbic.whosOnline.guests %></div><div class="statItem"><%- bbic.whosOnline.bots %></div></div>
+                    <div><%- bbic.whosOnline.data.membersList %></div>
+                    <div><%- bbic.whosOnline.data.legend %></div>
+                </div>
+            </div>
+        <% } %>
+        <% if (bbic.statistics.display) { %>
+            <div class="bbicSubTitle">
+                <div class="dualHorizontalGridCentered">
+                    <div><i class="fa-solid fa-chart-line"></i><%= locale.index.statisticsTitle %></div>
+                    <div class="bbicRightLink alignRight"><a href="<%= urls.statistics %>"><i class="fa-solid fa-square-poll-vertical"></i><%= locale.index.moreStatisticsLink %></a></div>
+                </div>
+            </div>
+            <div class="bbicItem">
+                <div class="verticalGridBiggerGap">
+                    <div><%- bbic.statistics.newestMember %></div>
+                    <div class="statItemsFlex"><div class="statItem"><%- bbic.statistics.total.members %></div><div class="statItem"><%- bbic.statistics.total.categories %></div><div class="statItem"><%- bbic.statistics.total.forums %></div><div class="statItem"><%- bbic.statistics.total.topics %></div><div class="statItem"><%- bbic.statistics.total.posts %></div></div>
+                    <div><%- bbic.statistics.mostOnline %></div>
+                </div>
+            </div>
+        <% } %>
+        <% if (bbic.tags.display) { %>
+            <div class="bbicSubTitle">
+                <div class="dualHorizontalGridCentered">
+                    <div><i class="fa-solid fa-tag"></i><%= locale.index.tags %></div>
+                    <div class="bbicRightLink alignRight"><a href="<%= urls.tags %>"><i class="fa-solid fa-tags"></i><%= locale.index.tagsLink %></a></div>
+                </div>
+            </div>
+            <div class="bbicItem bbicTagsContainer">
+                <% bbic.tags.data.forEach(tag => { %>
+                    <div class="bbicTag" style="font-size: <%= tag.size %>px;"><a href="<%= tag.url %>"><%= tag.title %></a></div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+<% } %>

@@ -1,0 +1,28 @@
+.editor .ProseMirror { width: auto; background-color: #0F1113; padding: 0 20px 20px 20px; border-radius: 0 0 8px 8px; min-height: 300px; font-size: 15px; }
+.editor iframe, .ProseMirror iframe { border-radius: 8px; border: 2px solid #004C75; }
+.editorToolbar { width: auto; padding: 0 20px 0 20px; border-radius: 8px 8px 0 0; background-color: #0F1113; position: sticky; color: #787878; top: 0; left: 0; right: 0; z-index: 100; }
+.editorContainer { position: relative; border-radius: 8px; }
+.editor *:focus { outline: none; }
+.editorContainer { border: 1px solid #383C40; }
+.editorContainer:focus-within { outline: 2px solid #004C75; }
+.editor { padding-top: 10px; background-color: #0F1113; }
+.editorToolbarInner { width: auto; border-bottom: 1px solid #282828; padding: 8px 0; }
+.editorToolbar .selection a, .editorToolbar .selection a:link, .editorToolbar .selection a:active, .editorToolbar .selection a:visited { color: #D6D6D6; text-decoration: none; transition: 0.5s ease; border-radius: 8px; padding: 6px 10px; display: inline-block; }
+.editorToolbar .selection a:hover { color: #FFF; text-decoration: none; transition: 0.5s ease; background-color: #282828; }
+.editorToolbar .selection i { margin-right: 8px; margin-left: 0; }
+.editorToolbar .selection i + i { margin-left: 8px; margin-right: 0; }
+.editorToolbar .item a, .editorToolbar .item a:link, .editorToolbar .item a:active, .editorToolbar .item a:visited { color: #D6D6D6; text-decoration: none; transition: 0.5s ease; border-radius: 8px; padding: 6px 10px; display: inline-block; }
+.editorToolbar .item a:hover { color: #FFF; text-decoration: none; transition: 0.5s ease; background-color: #282828; }
+.editorFooter { width: auto; border-radius: 0 0 8px 8px; background-color: #0F1113; border-top: 1px solid #282828; padding: 10px 20px; text-align: right; font-size: 12px; }
+.editorFooter strong { font-weight: 900; }
+.editorFooter span { margin-left: 20px; }
+.editorFooter span:first-of-type { margin-left: 0; }
+.editorCanvasGrid { display: grid; grid-template-columns: 1fr auto; gap: 20px; }
+.editorCanvas { border-radius: 8px; border: 3px solid #282828; width: 100%; box-sizing: border-box; height: 300px; cursor: crosshair; }
+.editorColorScope { width: 50px; height: 50px; border-radius: 8px; border: 3px solid #282828; margin-bottom: 20px; margin-left: auto; margin-right: auto; }
+.editorRGBGrid { display: grid; grid-template-columns: auto auto auto; gap: 20px; align-items: center; margin-bottom: 20px; }
+.editorHexInput { width: 100px; }
+.editorMarginTop { margin-top: 20px; }
+.editorGifSearch { width: auto; border-radius: 8px 8px 0 0; background-color: #282828; padding: 10px; }
+.editorGifFlex { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: space-between; max-width: 500px; }
+.editorGifFlex img { flex: 1 1 30%; max-width: 150px; height: auto; margin: 5px; }

@@ -1,0 +1,49 @@
+<div class="topicItem">
+    <div class="topicItemGrid">
+        <div><%- creatorPhoto %></div>
+        <div class="relative">
+            <span class="topicInfoFloater">
+                <% if (pinned) { %>
+                <span class="icon pin tooltip tooltip--right" data-title="<%= locale.topicEntity.pinnedTooltip %>"><i class="fa-solid fa-thumbtack"></i></span>
+                <% } %>
+                <% if (hot) { %>
+                <span class="icon fire tooltip tooltip--right" data-title="<%- hotTooltip %>"><i class="fa-solid fa-fire"></i></span>
+                <% } %>
+                <% if (attachment) { %>
+                <span class="icon attachment tooltip tooltip--right" data-title="<%= locale.topicEntity.attachmentsTooltip %>"><i class="fa-solid fa-paperclip"></i></span>
+                <% } %>
+                <% if (answered) { %>
+                <span class="icon answered tooltip tooltip--right" data-title="<%= locale.topicEntity.answerTooltip %>"><i class="fa-solid fa-check"></i></span>
+                <% } %>
+                <% if (locked) { %>
+                <span class="icon locked tooltip tooltip--right" data-title="<%= locale.topicEntity.lockedTooltip %>"><i class="fa-solid fa-lock"></i></span>
+                <% } %>
+            </span>
+            <span class="<% if (isRead) { %>topicLinkRead<% } else { %>topicLinkUnread<% } %>"><a href="<%= url %>"><%= title %></a></span><br>
+            <span class="topicItemSmallText"><%- creatorLink %>, <%= createdTimestamp %></span>
+        </div>
+        <div class="topicItemGridStat">
+            <%= locale.topicEntity.likes %><br>
+            <span class="topicItemGridStatNumber"><%- totalLikes %></span>
+        </div>
+        <div class="topicItemGridStat">
+            <%= locale.topicEntity.replies %><br>
+            <span class="topicItemGridStatNumber"><%- totalReplies %></span>
+        </div>
+        <div class="topicItemGridStat">
+            <%= locale.topicEntity.views %><br>
+            <span class="topicItemGridStatNumber"><%- totalViews %></span>
+        </div>
+        <div class="topicItemGridLastPost blockAlignRight">
+            <div class="userSideBySideGrid">
+                <div>
+                    <div class="verticalGrid">
+                        <div><%- lastPosterLink %></div>
+                        <div class="lastPostSmall"><%= lastPostTimestamp %></div>
+                    </div>
+                </div>
+                <div><%- lastPosterPhoto %></div>
+            </div>
+        </div>
+    </div>
+</div>

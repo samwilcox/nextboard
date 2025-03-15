@@ -91,7 +91,7 @@ class FileHelper {
      */
     static deleteFile(filePath) {
         try {
-            fs.unlink(filePath);
+            fs.unlinkSync(filePath);
         } catch (error) {
             console.error(`Error deleting the file: ${filePath}.`);
             throw error;
@@ -161,6 +161,45 @@ class FileHelper {
             console.error(`Error creating directory: ${directory}.`);
             throw error;
         }
+    }
+
+    /**
+     * Converts a file size in bytes to a human-readable format.
+     * 
+     * @param {number} bytes - The file size in bytes.
+     * @returns {string} A humean-readable file size (e.g., '1.23 MB").
+     */
+    static formatFileSize(bytes) {
+        const Settings = require('../settings');
+        if (bytes === 0) return "0 B";
+
+        const sizeUnits = Settings.get('fileSizeUnits');
+        const i = Math.floor(Math.log(bytes) / Math.log(1024));
+        const formattedSize = (bytes / Math.pow(1024, i)).toFixed(2);
+
+        return `${formattedSize} ${sizeUnits[i]}`;
+    }
+
+    /**
+     * Deletes the contents of a directory.
+     * 
+     * @param {string} dirPath - The path to the directory to clear.
+     */
+    static deleteDirectoryContents(dirPath) {
+        const Settings = require('../settings');
+        const files = fs.readdirSync(dirPath);
+
+        files.forEach(file => {
+            const filePath = path.join(dirPath, file);
+            const stats = fs.statSync(filePath);
+
+            if (stats.isDirectory()) {
+                this.deleteDirectoryContents(filePath);
+                fs.rmdirSync(filePath);
+            } else {
+                fs.unlinkSync(filePath);
+            }
+        });
     }
 }
 

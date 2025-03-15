@@ -12,6 +12,7 @@
  */
 
 const Settings = require('../settings');
+const UtilHelper = require('../helpers/utilHelper');
 
 /**
  * Initialize the application settings.
@@ -19,6 +20,7 @@ const Settings = require('../settings');
 module.exports = () => {
     try {
         Settings.initialize();
+        UtilHelper.initializeBreadcrumbs();
         console.log('Application settings initialized.');
     } catch (error) {
         console.error(`Failed to initialize application settings: ${error}`);

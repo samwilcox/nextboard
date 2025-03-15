@@ -12,6 +12,7 @@
  */
 
 const setupRoutes = require('../routes');
+const setupAdminCPRoutes = require('../admincp/routes');
 
 /**
  * Set up all the application routes for NextBoard.
@@ -21,6 +22,7 @@ const setupRoutes = require('../routes');
 module.exports = (app) => {
     try {
         setupRoutes(app);
+        setupAdminCPRoutes(app);
         console.log('Application routes setup.');
     } catch (error) {
         console.error(`Failed to setup the application routes: ${error}`);

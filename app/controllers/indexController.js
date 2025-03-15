@@ -30,11 +30,16 @@ class IndexController {
      * 
      * @param {Object} req - The request object from Express.
      * @param {Object} res - The response object from Express.
+     * @param {Object} next - The next middleware to execute.
      */
-    async buildIndex(req, res) {
-        const vars = this.model.buildIndex(req, res);
-        const globals = GlobalsService.get(req);
-        res.render('home/index', { layout: 'layout', ...globals, ...vars });
+    async buildIndex(req, res, next) {
+        try {
+            const vars = await this.model.buildIndex(req, res, next);
+            const globals = await GlobalsService.get(req);
+            res.render('home/index', { layout: 'layout', ...globals, ...vars });
+        } catch (error) {
+            next(error);
+        }
     }
 }
 

@@ -1,0 +1,92 @@
+<% if (showOptions) { %>
+    <div class="dropDownMenu" id="ddm-options-<%= post.getId() %>">
+        <span class="dropDownMenuLinks">
+            <% if (forum.getCan().report) { %>
+                <a href=""><i class="fa-solid fa-flag"></i>Report</a>
+            <% } %>
+            <% if (forum.getCan().share) { %>
+                <a href=""><i class="fa-solid fa-share-nodes"></i>Share</a>
+            <% } %>
+        </span>
+    </div>
+<% } %>
+<% if (tags) { %>
+    <div class="dropDownMenu" id="ddm-tags-<%= post.getId() %>">
+        <span class="dropDownMenuLinks">
+            <% tags.forEach(tag => { %>
+                <a href="<%= tag.url() %>"><%= tag.getTitle() %></a>
+            <% }) %>
+        </span>
+    </div>
+<% } %>
+
+<a id="postnumber-<%= postNumber %>"></a>
+<div class="postItem<% if (post.isFirst()) { %> first<% } %>">
+    <div class="postItemGrid">
+        <div class="postItemUpper">
+            <span class="postItemPhoto"><%- creatorPhoto %></span>
+            <div class="postItemUpperGrid">
+                <div>
+                    <div class="postItemNameGrid">
+                        <div class="postItemName"><a href="<%= creator.url() %>"><%= creator.getName() %></a></div>
+                        <div><%- group.link() %></div>
+                    </div>
+                </div>
+                <div class="postItemUpperInfo">
+                    <span><%- info.totalPosts %></span>
+                    <span><%- info.reputation %></span>
+                    <% if (creator.toggles.display.gender) { %>
+                        <span><%- info.gender %></span>
+                    <% } %>
+                    <% if (creator.toggles.display.pronouns) { %>
+                        <span><%- info.pronouns %></span>
+                    <% } %>
+                    <% if (creator.toggles.display.location) { %>
+                        <span><%- info.location %></span>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="postItemUpperDetails">
+            <div class="postItemUpperInfoDualGrid">
+                <div><%- postedAt %></div>
+                <div class="alignRight postItemUpperDetailsGridRight">
+                    <% if (tags) { %>
+                        <span class="postItemTags"><a href="javascript:void(0);" id="ddm-tags-<%= post.getId() %>-link" data-menu="ddm-tags-<%= post.getId() %>" data-link="ddm-tags-<%= post.getId() %>-link" data-ignored="ddm-tags-<%= post.getId() %>-icon1,ddm-tags-<%= post.getId() %>-icon2" data-spacing="34" onclick="openDropDownMenu(this);"><i class="fa-solid fa-tag" id="ddm-tags-<%= post.getId() %>-icon1"></i><%= locale.postEntity.tags %><i class="fa-solid fa-angle-down" id="ddm-tags-<%= post.getId() %>-icon2"></i></a></span>
+                    <% } %>
+                    <span class="tooltip tooltip--top" data-title="<%= locale.postEntity.permalink %>"><a href="<%= postUrl %>"><i class="fa-solid fa-hashtag"></i><%= postNumber %></a></span>
+                    <% if (showOptions) { %>
+                        <span class="tooltip tooltip--top" data-title="<%= locale.postEntity.optionsTooltip %>" id="ddm-options-<%= post.getId() %>-link" data-menu="ddm-options-<%= post.getId() %>" data-link="ddm-options-<%= post.getId() %>-link" data-ignored="ddm-options-<%= post.getId() %>-icon" data-spacing="28" onclick="openDropDownMenu(this);"><a href="javascript:void(0);"><i class="fa-solid fa-bars" id="ddm-options-<%= post.getId() %>-icon"></i></a></span>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="postItemContent">
+            <%- content %>
+            <% if (attachments && canDownload) { %>
+                <div class="postItemAttachments">
+                    <div class="postItemAttachmentsHeader"><i class="fa-solid fa-paperclip"></i><%= locale.postEntity.attachments %></div>
+                    <div class="postItemAttachmentsContainer">
+                        <% attachments.forEach(attachment => { %>
+                            <%- attachment.build() %>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } %>
+            <% if (signature && includeSignature && showSignature) { %>
+                <div class="postItemSignature"><%- signature %></div>
+            <% } %>
+        </div>
+        <div class="postItemLower">
+            <div class="dualHorizontalGridCentered">
+                <div class="postItemModInfo">
+                    <% if (canViewIpHostname) { %>
+                        <span><%- ipAddress %></span>
+                        <span><%- hostname %></span>
+                    <% } %>
+                </div>
+                <div class="alignRight"><%- likeButton %></div>
+            </div>
+        </div>
+    </div>
+</div>

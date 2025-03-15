@@ -1,0 +1,54 @@
+<div id="question-<%= number %>">
+    <div class="marginTop"></div>
+        <div class="dualVerticalBigGapGrid">
+            <div>
+                <div class="dialogItemHeader pollOptionsDelete"><%= questionTitle %><a href="javascript:void(0);" data-question="<%= number %>" onclick="deletePollQuestion(this);"><i class="fa-solid fa-trash-can"></i><%= locale.ajaxHelper.deleteLink %></a></div>
+                <div class="dualVerticalBiggerGrid">
+                    <div>
+                        <div class="formGroup">
+                            <input type="text" name="question-<%= number %>" id="question-<%= number %>-input" placeholder="<%= questionTitle %>" data-question="<%= number %>" onkeyup="pollOnQuestionChange(this);">
+                            <label for="question-<%= number %>-input"><%- questionTitle %></label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="horizontalFieldsGrid" style="align-items: center;">
+                            <div>
+                                <div class="checkbox2">
+                                    <input id="multiplechoice-question-<%= number %>-mc" class="substituted" data-question="<%= number %>" type="checkbox" onchange="pollOnMcChange(this);" aria-hidden="true" checked>
+                                    <label for="multiplechoice-question-<%= number %>-mc"><%= locale.ajaxHelper.multipleChoice %></label>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="pollOptionsGrid" id="question-<%= number %>-options-grid">
+                    <div id="question-<%= number %>-option-1">
+                        <div class="pollOptionsGridColumns">
+                            <div><i class="fa-solid fa-trash-can"></i></div>
+                            <div>
+                                <div class="formGroup">
+                                    <input type="text" name="question-<%= number %>-option-1" id="question-<%= number %>-option-1" data-question="<%= number %>" data-option="1" placeholder="<%= optionTitleOne %>">
+                                    <label for="question-<%= number %>-input"><%= optionTitleOne %></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="question-<%= number %>-option-2">
+                        <div class="pollOptionsGridColumns">
+                            <div><i class="fa-solid fa-trash-can"></i></div>
+                            <div>
+                                <div class="formGroup">
+                                    <input type="text" name="question-<%= number %>-option-2" id="question-<%= number %>-option-2" data-question="<%= number %>" data-option="2" placeholder="<%= optionTitleTwo %>">
+                                    <label for="question-<%= number%>-input"><%= optionTitleTwo %></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pollAddOption"><a href="javascript:void(0);" data-question="<%= number %>" onclick="addNewPollOption(this);"><i class="fa-solid fa-plus"></i><%= locale.create.addPollOption %></a></div>
+            </div>
+        </div>
+    </div>
+</div>

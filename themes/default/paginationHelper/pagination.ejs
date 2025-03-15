@@ -1,0 +1,39 @@
+<% if (marginTop) { %>
+    <div class="marginTop"></div>
+<% } %>
+<div class="paginationBar">
+    <div class="dualHorizontalGridCentered">
+        <div class="pagination">
+            <% if (pagination.hasFirst) { %>
+                <span><a href="<%= url %>/page/1" class="tooltip tooltip--top" data-title="<%= locale.paginationHelper.firstPageTooltip %>"><i class="fa-solid fa-angles-left"></i></a></span>
+            <% } %>
+            <% if (pagination.hasPrevious) { %>
+                <span><a href="<%= url %>/page/<%= pagination.previousPage %>" class="tooltip tooltip--top" data-title="<%= locale.paginationHelper.previousPageTooltip %>"><i class="fa-solid fa-angle-left"></i></a></span>
+            <% } %>
+            <% if (pagination.includeLeftEllipsis) { %>
+                 ... 
+            <% } %>
+            <% pagination.pageLinks.forEach(link => { %>
+                <span<% if (link.active) { %> class="selected"<% } %>><a href="<%= url %>/page/<%= link.page %>"><%= link.page %></a></span>
+            <% }) %>
+            <% if (pagination.includeRightEllipsis) { %>
+                 ... 
+            <% } %>
+            <% if (pagination.hasNext) { %>
+                <span><a href="<%= url %>/page/<%= pagination.nextPage %>" class="tooltip tooltip--top" data-title="<%= locale.paginationHelper.nextPageTooltip %>"><i class="fa-solid fa-angle-right"></i></a></span>
+            <% } %>
+            <% if (pagination.hasLast) { %>
+                <span><a href="<%= url %>/page/<%= pagination.lastPage %>" class="tooltip tooltip--top" data-title="<%= locale.paginationHelper.lastPageTooltip %>"><i class="fa-solid fa-angles-right"></i></a></span>
+            <% } %>
+        </div>
+        <div class="blockAlignRight">
+            <div class="paginationRightGrid">
+                <div><%- displaying %></div>
+                <div><%- pageOfPage %></div>
+            </div>
+        </div>
+    </div>
+</div>
+<% if (marginBottom) { %>
+    <div class="marginBottom"></div>
+<% } %>

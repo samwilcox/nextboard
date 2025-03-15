@@ -1,0 +1,9 @@
+<div class="dropDownMenu" id="ddm-subforums-link-<%= id %>">
+    <span class="dropDownMenuLinks">
+        <% if (menu) { %>
+            <% menu.forEach(item => { %>
+                <a href="<%= item.url %>"><%= item.title %></a>
+            <% }) %>
+        <% } %>
+    </span>
+</div>

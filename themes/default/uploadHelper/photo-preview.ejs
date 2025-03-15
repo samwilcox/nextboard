@@ -1,0 +1,15 @@
+<div class="uploaderPreviewItem" id="uploader-preview-item-<%= uploaderId %>">
+    <div class="uploaderPreviewItemPhotoGrid">
+        <div>
+            <img src="<%= url %>" alt="*" class="uploaderImage">
+        </div>
+        <div class="uploaderFileName"><%= fileName %></div>
+        <div class="uploaderFileSize"><%= fileSize %></div>
+        <div>
+            <div class="uploaderImageGrid uploaderPreviewAction">
+                <div><a href="javascript:void(0);" data-type="<%= type %>" data-id="<%= id %>"><i class="fa-solid fa-plus"></i><%= locale.uploadHelper.addToMessage %></a></div>
+                <div><a href="javascript:void(0);" data-type="<%= type %>" data-id="<%= id %>" data-uploaderid="<%= uploaderId %>" onclick="deleteFile(this);"><i class="fa-solid fa-trash-can"></i><%= locale.uploadHelper.delete %></a></div>
+            </div>
+        </div>
+    </div>
+</div>

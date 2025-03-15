@@ -1,0 +1,147 @@
+<div class="pageTitleBar">
+    <div class="pageTitleBarGrid">
+        <div class="pageTitle"><%= locale.admincp.index.dashboardPageTitle %></div>
+        <div class="pageTitleInfo"><%= locale.admincp.index.dashboardPageInfo %></div>
+    </div>
+</div>
+<div class="dashboardGrid">
+    <div>
+        <div class="dashboardItem">Here</div>
+        <div class="dashboardItem">Here</div>
+    </div>
+    <div>
+        <div class="dashboardItem">Here</div>
+        <div class="dashboardItem">
+            <div class="dashboardItemGrid">
+                <div class="dashboardItemGridLeft">
+                    <div class="dashboardItemGridInnerGrid">
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.operatingSystemInfo %></div>
+                        <div>
+                            <div class="dashboardRowGrid">
+                                <div class="paddingLeft">
+                                    <div class="iconGrid">
+                                        <div class="osIcon">
+                                            <% if (system.os.platform === 'win32') { %>
+                                                🪟
+                                            <% } else if (system.os.platform === 'linux') { %>
+                                                🐧
+                                            <% } else if (system.os.platform === 'darwin') { %>
+                                                🍏
+                                            <% } else { %>
+                                                💻
+                                            <% } %>
+                                        </div>
+                                        <div><%= system.os.version %></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboardItemLeftRightGrid">
+                            <div class="bold paddingLeft"><%= locale.admincp.index.osRelease %></div>
+                            <div class="alignRight paddingRight"><%= system.os.release %></div>
+                            <div class="bold paddingLeft"><%= locale.admincp.index.osArch %></div>
+                            <div class="alignRight paddingRight"><%= system.os.arch %></div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.memory %></div>
+                        <div>
+                            <div class="dashboardItemLeftRightGrid">
+                                <div class="bold paddingLeft"><%= locale.admincp.index.memoryTotal %></div>
+                                <div class="alignRight paddingRight"><%= system.os.totalMemory.formatted %></div>
+                                <div class="bold paddingLeft"><%= locale.admincp.index.memoryFree %></div>
+                                <div class="alignRight paddingRight"><%= system.os.freeMemory.formatted %></div>
+                            </div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.storage %></div>
+                        <div>
+                            <div class="percentageBarGrid">
+                                <% system.diskUsage.forEach(item => { %>
+                                    <div class="storageIcon"><i class="fa-solid fa-hard-drive"></i></div>
+                                    <div class="bold"><%= item.mount %></div>
+                                    <div><div class="percentageBarWrapper"><span class="storageUsed"><%= item.used.formatted %></span><span class="percentage"><%= item.percentage %></span><div class="percentageBar" style="width: <%= item.percentage %>;">&nbsp;</div></div></div>
+                                    <div class="paddingRight"><%= item.total.formatted %></div>
+                                <% }) %>
+                            </div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.additionalPCInfo %></div>
+                        <div class="dashboardItemLeftRightGrid">
+                            <div class="bold paddingLeft"><%= locale.admincp.index.uptime %></div>
+                            <div class="alignRight paddingRight"><%= system.os.uptime %></div>
+                            <div class="bold paddingLeft"><%= locale.admincp.index.hostname %></div>
+                            <div class="alignRight paddingRight"><%= system.os.hostname %></div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.nodeInformation %></div>
+                        <div class="dashboardItemLeftRightGrid">
+                            <div class="bold paddingLeft"><%= locale.admincp.index.version %></div>
+                            <div class="alignRight paddingRight"><%= system.node.version %></div>
+                            <div class="bold paddingLeft"><%= locale.admincp.index.processId %></div>
+                            <div class="alignRight paddingRight"><%= system.node.pid %></div>
+                            <div class="bold paddingLeft"><%= locale.admincp.index.memoryUsage %></div>
+                            <div class="alignRight paddingRight"><%= system.node.memoryUsage %></div>
+                            <div class="bold paddingLeft"><%= locale.admincp.index.uptime %></div>
+                            <div class="alignRight paddingRight"><%= system.node.uptime %></div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.proxyInformation %></div>
+                        <div class="dashboardItemLeftRightGrid">
+                            <div class="bold paddingLeft"><%= locale.admincp.index.usingProxy %></div>
+                            <div class="alignRight paddingRight">
+                                <% if (system.proxy.usingProxy) { %>
+                                    <%= locale.admincp.index.yes %>
+                                <% } else { %>
+                                    <%= locale.admincp.index.no %>
+                                <% } %>
+                            </div>
+                            <div class="bold paddingLeft"><%= locale.admincp.index.proxyPlatform %></div>
+                            <div class="alignRight paddingRight"><%= system.proxy.platform %></div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.nextboardInformation %></div>
+                        <div class="dashboardItemLeftRightGrid">
+                            <div class="bold paddingLeft"><%= locale.admincp.index.version %></div>
+                            <div class="alignRight paddingRight"><%= system.nextboard.version %></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="dashboardItemGridInnerGrid">
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.cpuInformation %></div>
+                        <div>
+                            <div class="dashboardItemLeftRightGrid">
+                                <div class="bold paddingLeft"><%= locale.admincp.index.cpuModel %></div>
+                                <div class="alignRight paddingRight"><%= system.cpu.model %></div>
+                                <div class="bold paddingLeft"><%= locale.admincp.index.cpuCores %></div>
+                                <div class="alignRight paddingRight"><%= system.cpu.cores %></div>
+                                <div class="bold paddingLeft"><%= locale.admincp.index.cpuSpeed %></div>
+                                <div class="alignRight paddingRight"><%= system.cpu.speed %></div>
+                            </div>
+                        </div>
+                        <div class="dashboardItemTitle"><%= locale.admincp.index.networkInterfaces %></div>
+                        <% Object.entries(system.os.networkInterfaces).forEach(([index, item]) => { %>
+                            <div class="dashboardNetworkTitle"><%= index %></div>
+                            <% item.forEach(ip => { %>
+                                <div class="dashboardItemLeftRightGrid">
+                                    <div class="bold paddingLeft"><%= locale.admincp.index.address %></div>
+                                    <div class="alignRight paddingRight"><%= ip.address %></div>
+                                    <div class="bold paddingLeft"><%= locale.admincp.index.netmask %></div>
+                                    <div class="alignRight paddingRight"><%= ip.netmask %></div>
+                                    <div class="bold paddingLeft"><%= locale.admincp.index.family %></div>
+                                    <div class="alignRight paddingRight"><%= ip.family %></div>
+                                    <div class="bold paddingLeft"><%= locale.admincp.index.mac %></div>
+                                    <div class="alignRight paddingRight"><%= ip.mac %></div>
+                                    <div class="bold paddingLeft"><%= locale.admincp.index.internal %></div>
+                                    <div class="alignRight paddingRight">
+                                        <% if (ip.internal) { %>
+                                            <%= locale.admincp.index.yes %>
+                                        <% } else { %>
+                                            <%= locale.admincp.index.no %>
+                                        <% } %>
+                                    </div>
+                                    <div class="bold paddingLeft"><%= locale.admincp.index.cidr %></div>
+                                    <div class="alignRight paddingRight"><%= ip.cidr %></div>
+                                </div>
+                            <% }) %>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

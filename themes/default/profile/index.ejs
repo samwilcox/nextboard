@@ -1,0 +1,144 @@
+<div class="profileBox">
+    <div class="profileHeaderGrid">
+        <div>
+            <% if (coverPhoto) { %>
+                <div class="profileCoverPhoto" style="--bg-img: url('<%- coverPhoto %>');"></div>
+            <% } else { %>
+                <div class="profileCoverPhotoNone"></div>
+            <% } %>
+        </div>
+        <div>
+            <div class="profileUnderCoverGrid">
+                <div class="profileUnderCoverGridPhoto"><%- profilePhoto %></div>
+                <div class="profileUnderCoverGridName">
+                    <div class="profileUnderCoverGridNameGrid">
+                        <div class="profileMemberName"><%= member.getName() %></div>
+                        <div class="profileGroupName"><%- member.getPrimaryGroup().link() %></div>
+                    </div>
+                </div>
+                <div class="profileUnderCoverGridPadding leftDivider">
+                    <div class="dualVerticalGrid">
+                        <div class="profileInfoTitle"><%= locale.profile.lastOnline %></div>
+                        <div class="alignCenter"><%= lastOnline %></div>
+                    </div>
+                </div>
+                <div class="profileUnderCoverGridPadding leftDivider">
+                    <div class="dualVerticalGrid">
+                        <div class="profileInfoTitle"><%= locale.profile.joined %></div>
+                        <div class="alignCenter"><%= joined %></div>
+                    </div>
+                </div>
+                <div class="alignRight profileUnderCoverGridPadding buttonTwo">
+                    <a href=""><i class="fa-solid fa-plus"></i><%= locale.profile.follow %></a>
+                    <a href=""><i class="fa-solid fa-envelope"></i><%= locale.profile.message %></a>
+                    <a href=""><i class="fa-solid fa-magnifying-glass-arrow-right"></i><%= locale.profile.findContent %></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profileStatsBox">
+    <span><i class="fa-solid fa-comment"></i><%- totalPosts %></span>
+    <span><i class="fa-solid fa-thumbs-up"></i><%- reputation %></span>
+    <span><i class="fa-solid fa-check"></i><%- totalAnswers %></span>
+    <span><i class="fa-solid fa-users"></i><%- totalFollowers %></span>
+</div>
+<div class="profileGrid">
+    <div>
+        <% if (toggles.location || toggles.gender || toggles.pronouns || toggles.pronunciation) { %>
+            <div class="profileBlock">
+                <div class="profileBlockHeader"><%= locale.profile.profileInformation %></div>
+                <% if (toggles.location) { %>
+                    <div class="profileBlockItem">
+                        <div class="dualHorizontalGridCentered">
+                            <div><strong><%= locale.profile.location %></strong></div>
+                            <div class="alignRight"><a href="<%= urls.location %>" target="_blank"><%= member.getLocation() %></a></div>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (toggles.gender) { %>
+                    <div class="profileBlockItem">
+                        <div class="dualHorizontalGridCentered">
+                            <div><strong><%= locale.profile.gender %></strong></div>
+                            <div class="alignRight"><%= member.getParsedGender() %></div>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (toggles.pronouns) { %>
+                    <div class="profileBlockItem">
+                        <div class="dualHorizontalGridCentered">
+                            <div><strong><%= locale.profile.pronouns %></strong></div>
+                            <div class="alignRight">
+                                <% var initial = true; %>
+                                <% if (member.getPronouns() && member.getPronouns().length > 0) { %>
+                                    <% member.getPronouns().forEach(pronoun => { %><% if (initial) { %><% initial = false; %><% } else { %>, <% } %><%= pronoun %><% }) %>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (toggles.pronunciation) { %>
+                    <div class="profileBlockItem">
+                        <div class="dualHorizontalGridCentered">
+                            <div><strong><%= locale.profile.pronunciation %></strong></div>
+                            <div class="alignRight"><%= member.getPronunciation() %></div>
+                        </div>
+                    </div>
+                <% } %>
+            </div> 
+        <% } %>
+        <% if (toggles.email || toggles.url ) { %>
+            <div class="profileBlock">
+                <div class="profileBlockHeader"><%= locale.profile.contactInformation %></div>
+                <% if (toggles.email) { %>
+                    <div class="profileBlockItem">
+                        <div class="dualHorizontalGridCentered">
+                            <div><strong><%= locale.profile.emailAddress %></strong></div>
+                            <div class="alignRight">
+                                <a href="mailto:<%= member.getEmailAddress() %>"><%= member.getEmailAddress() %></a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (toggles.url) { %>
+                    <div class="profileBlockItem">
+                        <div class="dualHorizontalGridCentered">
+                            <div><strong><%= locale.profile.websiteURL %></strong></div>
+                            <div class="alignRight">
+                                <% if (member.getWebsiteUrl()) { %>
+                                    <a href="<%= member.getWebsiteUrl() %>" target="_blank"><%= member.getWebsiteUrl() %></a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
+        <% if (toggles.visitors) { %>
+            <div class="profileBlock">
+                <div class="profileBlockHeader"><%= locale.profile.latestProfileViews %></div>
+            </div>
+            <% if (visitors.haveVisitors) { %>
+                <% visitors.visitors.forEach(visitor => { %>
+                    <div class="profileBlockItem">
+                        <div class="userSideBySideGrid">
+                            <div><%- visitor.photo %></div>
+                            <div>
+                                <div class="dualVerticalGrid">
+                                    <div class="biggerText"><%- visitor.link %></div>
+                                    <div class="timestampText"><%- visitor.timestamp %></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+                <div class="profileBlockItem alignCenter">
+                    <a href="javascript:void(0);"><%- visitors.totalLocalized %></a>
+                </div>
+            <% } else { %>
+                <div class="profileBlockItem"><%= locale.profile.noProfileViews %></div>
+            <% } %>
+        <% } %>
+    </div>
+    <div class="profileGridContent">Right</div>
+</div>

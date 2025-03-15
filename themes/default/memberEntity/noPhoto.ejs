@@ -1,0 +1,7 @@
+<% if (url) { %>
+    <a href="<%= url %>">
+<% } %>
+    <span class="<% if (type === 'normal') { %>noPhoto<% } else if (type === 'post') { %>photoPost<% } else { %>noPhotoThumbnail<% } %>" style="--bgcolor: <%= backgroundColor %>; --textcolor: <%= textColor %>"><%= letter %></span>
+<% if (url) { %>
+    </a>
+<% } %>

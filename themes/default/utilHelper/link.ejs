@@ -1,0 +1,22 @@
+<a 
+    href="<% if (js) { %>javascript:void(0);<% } else { %><%= url %><% } %>"
+    <% if (cssClasses && Array.isArray(cssClasses) && cssClasses.length > 0) { %>
+        class="<%= cssClasses.join(' ') %>"
+        <% if (tooltip) { %>tooltip tooltip--<%= tooltipPlacement %><% } %>"
+    <% } else if (tooltip) { %>
+        class="tooltip tooltip--<%= tooltipPlacement %>"
+    <% } %>
+    <% if (target) { %>target="<%= target %>"<% } %>
+    <% if (data) { %>
+        <% Object.entries(data).forEach(([key, value]) => { %>
+            data-<%= key %>="<%= value %>" 
+        <% }) %>
+    <% } %>
+    <% if (js && jsText) { %>
+         <%- jsText %>
+    <% } %>
+>
+    <%= icon %>
+    <%= title %>
+    <%= trailingIcon %>
+</a>

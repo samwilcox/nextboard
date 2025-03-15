@@ -1,0 +1,68 @@
+<div class="forumItem">
+    <div class="<% if (redirect !== null && redirect.enabled) { %>forumItemRedirectGrid<% } else { %>forumItemGrid<% } %>">
+        <div>
+            <% if (redirect !== null) { %>
+                <% if (redirect.enabled) { %>
+                    <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.redirectTooltip %>"><i class="fa-solid fa-location-arrow"></i></span>
+                <% } else { %>
+                    <% if (archived) { %>
+                        <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.archivedTooltip %>"><i class="fa-solid fa-box-archive"></i></span>
+                    <% } else { %>
+                        <% if (read) { %>
+                            <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.readTooltip %>"><i class="fa-regular fa-comments"></i></span>
+                        <% } else { %>
+                            <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.unreadTooltip %>"><i class="fa-solid fa-comments"></i></span>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            <% } else { %>
+                <% if (archived) { %>
+                    <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.archivedTooltip %>"><i class="fa-solid fa-box-archive"></i></span>
+                <% } else { %>
+                    <% if (read) { %>
+                        <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.readTooltip %>"><i class="fa-regular fa-comments"></i></span>
+                    <% } else { %>
+                        <span class="statusIcon tooltip tooltip--top" data-title="<%= locale.forumEntity.unreadTooltip %>"><i class="fa-solid fa-comments"></i></span>
+                    <% } %>
+                <% } %>
+            <% } %>
+        </div>
+        <div>
+            <span class="forumLink"><a href="<%= url %>"><%= title %></a></span><% if (browsing) { %> <span class="forumItemBrowsing"><%- browsing %></span><% } %><br>
+            <%- description %>
+            <% if (subForums) { %>
+                <%- subForums.link %>
+            <% } %>
+        </div>
+        <% if (redirect !== null && redirect.enabled) { %>
+            <div class="forumItemGridStat"><%= locale.forumEntity.clicks %><br><span class="forumItemGridStatNumber"><%= totalClicks %></span></div>
+        <% } else { %>
+            <div class="forumItemGridStat"><%= locale.forumEntity.topics %><br><span class="forumItemGridStatNumber"><%= totalTopics %></span></div>
+            <div class="forumItemGridStat"><%= locale.forumEntity.posts %><br><span class="forumItemGridStatNumber"><%= totalPosts %></span></div>
+        <% } %>
+        <% if (redirect !== null && redirect.enabled) { %>
+            <div class="forumItemGridLastClick">
+                <span class="tooltip tooltip--top" data-title="<%- lastClickFull %>"><%- lastClick %></span>
+            </div>
+        <% } else { %>
+            <% if (lastPost) { %>
+                <div class="forumItemGridLastPost blockAlignRight">
+                    <div class="userSideBySideGrid">
+                        <div>
+                            <div class="verticalGrid">
+                                <div class="lastPostTopicLink"><a href="<%= lastPost.topicUrl %>"><%= lastPost.topicTitle %></a></div>
+                                <div class="lastPostSmall"><%- lastPost.by %></div>
+                                <div class="lastPostSmall"><%= lastPost.timestamp %></div>
+                            </div>
+                        </div>
+                        <div><%- lastPost.photo %></div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="forumItemGridLastPostNone">
+                    <%= locale.forumEntity.noLastPost %>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</div>

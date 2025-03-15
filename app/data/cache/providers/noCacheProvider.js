@@ -59,11 +59,13 @@ class NoCacheProvider extends CacheInterface {
      */
     async update(table) {
         try {
-            const data = await this.db.fetchAll(this.builder.clear().select().from(table).build());
+            const data = await this.db.query(this.builder.clear().select().from(table).build());
             
             if (!data || data.length === 0) {
                 console.warn(`No data returned for table: ${table}`);
             }
+
+            this.cache[table] = data;
         } catch (error) {
             console.error(`Failed to update cache for table: ${table}. Error: ${error}`);
             throw error;

@@ -39,7 +39,7 @@ class DatabaseProviderFactory {
             case 'mysql':
                 DatabaseProviderFactory.instance = new MysqlProvider();
                 break;
-            case 'postsgre':
+            case 'postgres':
             case 'postgresql':
             case 'pg':
                 DatabaseProviderFactory.instance = new PostgresProvider();
@@ -60,6 +60,13 @@ class DatabaseProviderFactory {
         }
 
         return DatabaseProviderFactory.instance;
+    }
+
+    /**
+     * Resets the current instance of the DatabaseProviderFactory.
+     */
+    static reset() {
+        DatabaseProviderFactory.instance = null;
     }
 }
 

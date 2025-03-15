@@ -1,0 +1,136 @@
+<div class="dialog" id="dialog-topic-filter">
+    <div class="dialogHeader">
+        <div class="dualHorizontalGridCentered">
+            <div class="title">Filter Options</div>
+            <div class="alignRight dialogClose"><a href="javascript:void(0);" class="tooltip tooltip--top" data-title="<%= locale.global.closeDialogTooltip %>" onclick="closeDialog(this);"><i class="fa-solid fa-xmark"></i></a></div>
+        </div>
+    </div>
+    <div class="dialogContentWithFooter">
+        <div class="fieldsGrid">
+            <div>
+                <div class="fieldsGridInner">
+                    <div class="fieldsGridInnerLeft">Filter</div>
+                    <div>
+                        <select name="filter" id="select-filter">
+                            <% filter.filter.forEach(f => { %>
+                                <option value="<%= f.value %>"<% if (f.selected) { %> selected<% } %>><%= f.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="fieldsGridInner">
+                    <div class="fieldsGridInnerLeft">Sort By</div>
+                    <div>
+                        <select name="sortby" id="select-sortby">
+                            <% filter.sortBy.forEach(by => { %>
+                                <option value="<%= by.value %>"<% if (by.selected) { %> selected<% } %>><%= by.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="fieldsGridInner">
+                    <div class="fieldsGridInnerLeft">Sort Order</div>
+                    <div>
+                        <select name="sortorder" id="select-sortorder">
+                            <% filter.sortOrder.forEach(order => { %>
+                                <option value="<%= order.value %>"<% if (order.selected) { %> selected<% } %>><%= order.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="fieldsGridInner">
+                    <div class="fieldsGridInnerLeft">Timeframe</div>
+                    <div>
+                        <select name="timeframe" id="select-timeframe">
+                            <% timeframes.forEach(timeframe => { %>
+                                <option value="<%= timeframe.name %>"<% if (timeframe.selected) { %> selected<% } %>><%= timeframe.label %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialogFooter">
+        <input type="button" name="filtertopicsbutton" value="Apply Filter">
+    </div>
+</div>
+<div class="dualPageTitleGrid relative">
+    <span class="viewForumInfoFloater">
+        <span><i class="fa-regular fa-folder"></i><%- totalTopics %></span>
+        <span><i class="fa-regular fa-file"></i><%- totalPosts %></span>
+        <span><i class="fa-solid fa-user"></i><%- totalPosters %></span>
+        <span><i class="fa-solid fa-eye"></i><%- totalViews %></span>
+    </span>
+    <div class="dualPageTitleGridLeft">
+        <div class="dualVerticalGrid">
+            <div>
+                <div class="pageTitleText">Main Discussion</div>
+            </div>
+            <div class="smallText">You may discuss whatever you like in this forum.</div>
+        </div>
+    </div>
+    <div class="dualPageTitleGridRight">
+        <div class="dualVerticalBigGapGrid">
+            <div>
+                <% if (createTopic) { %>
+                    <span class="buttonOne"><a href="<%= urls.createTopic %>"><i class="fa-solid fa-folder-plus"></i><%= locale.forum.createTopicButton %></a></span>
+                <% } %>
+            </div>
+            <div class="blockAlignRight">
+                <% if (isSignedIn) { %>
+                    <div class="buttonValueLink">
+                        <span>
+                            <a href="" class="buttonValue">
+                                <div class="buttonValueGrid">
+                                    <div class="buttonValueGridLeft"><%- totalFollowing %></div>
+                                    <div class="buttonValueGridRight">
+                                        <% if (isFollowing) { %>
+                                            <%= locale.forum.unfollow %>
+                                        <% } else { %>
+                                            <%= locale.forum.follow %>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </a>
+                        </span>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<% if (subForums && subForums.haveForums) { %>
+    <div class="categoryHeader" id="subforums-forum-header">
+        <div class="dualHorizontalGridCentered">
+            <div><%= locale.forum.subForumsTitle %></div>
+            <div class="alignRight"><a href="javascript:void();" class="tooltip tooltip--top" data-title="Toggle" data-header="subforums-forum-header" data-content="subforums-forum-content" data-icon="subforums-forum-icon" data-icon-expanded="fa-solid fa-toggle-on" data-icon-collapsed="fa-solid fa-toggle-off" onclick="toggle(this);"><i class="fa-solid fa-toggle-on" id="subforums-forum-icon"></i></a></div>
+        </div>
+    </div>
+    <div class="forumsContainer" id="subforums-forum-content">
+    <% subForums.forums.forEach(forum => { %>
+        <%- forum.build() %>
+    <% }) %>
+<% } %>
+<%- paginationTop %>
+<div class="itemsHeader">
+    <div class="dualHorizontalGridCentered">
+        <div>Topics</div>
+        <div class="alignRight filterLink"><a href="javascript:void(0);" data-dialog="dialog-topic-filter" data-width="500" onclick="openDialog(event, this);"><i class="fa-solid fa-filter"></i>Filter Options</a></div>
+    </div>
+</div>
+<% if (topicsData.hasTopics) { %>
+    <% topicsData.topics.forEach(topic => { %>
+        <%- topic %>
+    <% }) %>
+<% } else { %>
+    <% topicsData.noTopics %>
+<% } %>
+<%- paginationBottom %>
+<%- browsing %>

@@ -1,0 +1,34 @@
+<%- header %>
+<div class="calendarWrapper">
+    <div class="calendarHeader">
+        <div class="calendarHeaderGrid">
+            <div class="calendarHeaderGridLeft"><a href="<%= urls.previous %>"><i class="fa-solid fa-arrow-left"></i> <%= previousMonthName %> <%= previousAndNext.previous.year %></a></div>
+            <div class="calendarHeaderGridCenter"><%= monthName %> <%= actualYear %></div>
+            <div class="calendarHeaderGridRight"><a href="<%= urls.next %>"><%= nextMonthName %> <%= previousAndNext.next.year %><i class="fa-solid fa-arrow-right"></i></a></div>
+        </div>
+    </div>
+    <div class="calendarDayGrid">
+        <div><%= locale.calendar.sunday %></div>
+        <div><%= locale.calendar.monday %></div>
+        <div><%= locale.calendar.tuesday %></div>
+        <div><%= locale.calendar.wednesday %></div>
+        <div><%= locale.calendar.thursday %></div>
+        <div><%= locale.calendar.friday %></div>
+        <div><%= locale.calendar.saturday %></div>
+    </div>
+    <% grid.forEach(week => { %>
+        <div class="calendarDaysGrid">
+            <% week.forEach(day => { %>
+                <div<% if (!day) { %> class="empty"<% } else if (day.day === current.day && inMonth) { %> class="today"<% } %>>
+                    <% if (day) { %>
+                        <span class="calendarDayFloater">
+                            <a href="<%= urls.day %>/<%= day.day %>"><%= day.day %></a>
+                        </span>
+                    <% } else { %>
+                        &nbsp;
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+    <% }) %>
+</div>

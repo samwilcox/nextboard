@@ -12,6 +12,8 @@
  */
 
 const SettingRepository = require('../repository/settingRepository');
+const FileHelper = require('../helpers/fileHelper');
+const path = require('path');
 
 /**
  * Application settings management.
@@ -28,12 +30,31 @@ class Settings {
         const data = cache.get('settings');
 
         if (!Array.isArray(data)) {
-            throw new Error('Settings data is not in expected array format');
+            if (process.env.DEBUG === 'true') {
+                console.warn('Settings data is invalid or not found in the cache. Initializing with blank settings.');
+                this.settings = {};
+                return;
+            }
         }
 
         data.forEach(setting => {
+            if (!setting.name || !setting.id) {
+                if (process.env.DEBUG === 'true') {
+                    console.warn(`Skipping invalid setting: ${JSON.stringify(setting)}`);
+                    return;
+                }
+            }
+
             this.settings[setting.name] = SettingRepository.getSettingById(setting.id);
         });
+
+        const emoticonsFilePath = path.join(__dirname, '..', '..', 'emoticons.json');
+        const fileData = FileHelper.readFile(emoticonsFilePath);
+        const emoticons = JSON.parse(fileData);
+
+        if (emoticons && Array.isArray(emoticons) && emoticons.length > 0) {
+            this.settings.emoticons = emoticons;
+        }
     }
 
     /**
@@ -47,7 +68,17 @@ class Settings {
             throw new Error('Setting key must be a string');
         }
 
-        return this.exists(key) ? this.settings[key] : null;
+        if (this.exists(key)) {
+            const setting = this.settings[key];
+
+            if (setting && typeof setting.getValue === 'function') {
+                return setting.getValue();
+            }
+            
+            return setting;
+        }
+
+        return null;
     }
 
     /**
@@ -73,6 +104,31 @@ class Settings {
         return { ...this.settings };
     }
 
+    /**
+     * Get the entire settings as raw data object.
+     * 
+     * @returns {Object} The entire setting raw data collection object.
+     */
+    static getAllRaw() {
+        const data = {};
+
+        Object.entries(this.settings).forEach(([key, setting]) => {
+            if (setting && typeof setting.getValue === 'function') {
+                data[key] = setting.getValue();
+            } else {
+                console.warn(`[WARN]: Setting '${key}' is not an object with getValue()`);
+                data[key] = setting;
+            }
+        });
+        
+        return data;
+    }
+
+    /**
+     * Check if the settings collection is empty.
+     * 
+     * @returns {boolean} True if there are no settings, false otherwise.
+     */
     static empty() {
         return Object.keys(this.settings).length === 0;
     }
